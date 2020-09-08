@@ -25,6 +25,19 @@ env:
   - DB=pgsql
   - DB=mysqli
 
+jobs:
+  include:
+    - php: 7.1
+      env: MOODLE_BRANCH=MOODLE_37_STABLE DB=pgsql
+    - php: 7.1
+      env: MOODLE_BRANCH=MOODLE_38_STABLE DB=pgsql
+    - php: 7.2
+      env: MOODLE_BRANCH=MOODLE_39_STABLE DB=pgsql
+    - php: 7.3
+      env: MOODLE_BRANCH=MOODLE_39_STABLE DB=pgsql
+    - php: 7.4
+      env: MOODLE_BRANCH=MOODLE_39_STABLE DB=pgsql
+
 before_install:
   - phpenv config-rm xdebug.ini
   - cd ../..
