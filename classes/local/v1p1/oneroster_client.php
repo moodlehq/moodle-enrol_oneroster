@@ -30,27 +30,23 @@ use core_course_category;
 use core_php_time_limit;
 use enrol_oneroster\client as client_base;
 use enrol_oneroster\local\converter;
-use enrol_oneroster\local\interfaces\{
-    // Client and associated features.
-    container as container_interface,
-    rostering_endpoint as rostering_endpoint_interface,
 
-    // Entities which represent Moodle objects.
-    course_representation,
-    coursecat_representation,
-    user_representation,
-    enrollment_representation,
-};
-use enrol_oneroster\local\collections\{
-    orgs as orgs_collection,
-    schools as schools_collection,
-    terms as terms_collection,
-};
+// Client and associated features.
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\rostering_endpoint as rostering_endpoint_interface;
+
+// Entities which represent Moodle objects.
+use enrol_oneroster\local\interfaces\course_representation;
+use enrol_oneroster\local\interfaces\coursecat_representation;
+use enrol_oneroster\local\interfaces\user_representation;
+use enrol_oneroster\local\interfaces\enrollment_representation;
+
+use enrol_oneroster\local\collections\orgs as orgs_collection;
+use enrol_oneroster\local\collections\schools as schools_collection;
+use enrol_oneroster\local\collections\terms as terms_collection;
 use enrol_oneroster\local\v1p1\endpoints\rostering as rostering_endpoint;
-use enrol_oneroster\local\entities\{
-    org as org_entity,
-    school as school_entity,
-};
+use enrol_oneroster\local\entities\org as org_entity;
+use enrol_oneroster\local\entities\school as school_entity;
 use moodle_url;
 use progress_trace;
 use stdClass;
@@ -92,10 +88,10 @@ trait oneroster_client {
      * Get the Base URL for this One Roster API version.
      *
      * @param string $server The hostname
-     * @returns moodle_url
+     * @return moodle_url
      */
     protected function get_base_url(string $server): moodle_url {
-        // https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480451989
+        // As per https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480451989
         // The API Root URL MUST be /ims/oneroster.
         //
         // To allow further versions of the specification to exist in a controlled manner, the new version number MUST be '/v1p1'.
@@ -166,7 +162,7 @@ trait oneroster_client {
 
         // Only fetch users last modified in the past day.
         // All timezones in One Roster are Zulu.
-//        $this->sync_users_in_schools($schoolidstosync, $onlysince);
+        $this->sync_users_in_schools($schoolidstosync, $onlysince);
 
         // Fetch the details of all enrolment instances before running the sync.
         $this->cache_enrolment_instances();
@@ -195,8 +191,10 @@ trait oneroster_client {
             $context = \context_course::instance($instance->courseid);
 
             // Unassign roles for this user.
-            foreach ($ra as $userid => $roleid) {
-                role_unassign($roleid, $userid, $context->id, 'enrol_oneroster', $instance->id);
+            foreach ($ra as $userid => $roleids) {
+                foreach (array_keys($roleids) as $roleid) {
+                    role_unassign($roleid, $userid, $context->id, 'enrol_oneroster', $instance->id);
+                }
             }
 
             // Unenrol the user if they have no remaining roles in this enrolment instance.
@@ -217,7 +215,7 @@ trait oneroster_client {
         $sql = <<<EOF
       SELECT
             e.id AS enrolid,
-            ue.id AS ueid, 
+            ue.id AS ueid,
             ue.userid AS userid,
             ra.roleid
         FROM {user_enrolments} ue
@@ -252,8 +250,6 @@ EOF;
      * @param   DateTime|null $onlysince Only sync users which have been remotely modified since the specified date
      */
     public function sync_users_in_schools(array $schoolids, ?DateTime $onlysince = null): void {
-        $trace = $this->get_trace();
-
         $filter = null;
         if ($onlysince) {
             // Only fetch users last modified in the onlysince period.
@@ -285,6 +281,7 @@ EOF;
      * Synchronise the entire School.
      *
      * @param   school_entity $school
+     * @param   null|DateTime $onlysince
      */
     public function sync_school(school_entity $school, ?DateTime $onlysince = null): void {
         // Updating the category for this school.
@@ -293,6 +290,7 @@ EOF;
         $this->get_trace()->output("Fetching term data", 3);
         foreach ($school->get_terms() as $term) {
             // Nullop to cache terms.
+            continue;
         }
 
         $classfilter = new filter();
@@ -304,8 +302,16 @@ EOF;
         $this->get_trace()->output("Fetching class data", 3);
         $classes = $school->get_classes([], $classfilter);
         foreach ($classes as $class) {
-            $this->get_trace()->output("Synchronising course '" . $class->get('title') . "' with id " . $class->get('sourcedId'), 4);
-            $moodlecourse = $this->update_or_create_course($class, $classfilter);
+            $this->get_trace()->output(
+                sprintf(
+                    "Synchronising course '%s' with id %s",
+                    $class->get('title'),
+                    $class->get('sourcedId')
+                ),
+                4
+            );
+
+            $this->update_or_create_course($class);
 
             // Note: In an ideal world, enrollments would happen here.
             // However during development we discovered that some services do not work well enough to filter correctly
@@ -449,7 +455,7 @@ EOF;
      * @param   course_representation $entity An entity representing a course category
      * @return  stdClass
      */
-    protected function update_or_create_course(course_representation $entity, filter $classfilter): stdClass {
+    protected function update_or_create_course(course_representation $entity): stdClass {
         global $CFG, $DB;
 
         require_once("{$CFG->dirroot}/course/lib.php");
@@ -475,8 +481,10 @@ EOF;
                 }
             }
 
-            update_course($localcourse);
-            $this->add_metric('course', 'update');
+            if ($update) {
+                update_course($localcourse);
+                $this->add_metric('course', 'update');
+            }
         } else {
             $localcourse = create_course($remotecourse);
             $this->add_metric('course', 'create');
@@ -573,7 +581,7 @@ EOF;
             // Create a mapping of userid => [roleid] for current user agents.
             $localuseragents = [];
             foreach (get_users_roles($localusercontext, [], false) as $userid => $roleassignments) {
-                foreach ($roleassignments as $raid => $ra) {
+                foreach (array_values($roleassignments) as $ra) {
                     if ($ra->component === 'enrol_oneroster') {
                         if (!array_key_exists($userid, $localuseragents)) {
                             $localuseragents[$userid] = [];
@@ -667,7 +675,7 @@ EOF;
      * @return  stdClass
      */
     protected function update_or_create_enrolment(enrollment_representation $entity) {
-        global $CFG, $DB;
+        global $DB;
 
         // Fetch the user details for this enrolment.
         $userentity = $entity->get_user_entity();
@@ -805,6 +813,7 @@ EOF;
      * Get the role mapping for the specified role.
      *
      * @param   string $rolename The One Roster role name
+     * @param   int $intendedcontextlevel The context level that this mapping relates to
      * @return  int|null The Moodle Role ID for the mapped role
      */
     protected function get_role_mapping(string $rolename, int $intendedcontextlevel): ?int {
@@ -847,7 +856,7 @@ EOF;
                 SELECT eom.mappedid, u.id
                 FROM {enrol_oneroster_user_map} eom
                 JOIN {user} u ON u.idnumber = eom.parentid
-            EOF;
+EOF;
 
             $this->usermappings = $DB->get_records_sql_menu($sql);
         }
@@ -874,10 +883,10 @@ EOF;
     /**
      * Create a user mapping entry.
      *
-     * @param   object $usre
+     * @param   stdClass $user
      * @param   string $mappedid
      */
-    protected function create_user_mapping(object $user, string $mappedid): void {
+    protected function create_user_mapping(stdClass $user, string $mappedid): void {
         global $DB;
 
         $DB->insert_record('enrol_oneroster_user_map', (object) [
@@ -922,9 +931,9 @@ EOF;
     /**
      * Fetch the recorded tracking metrics.
      *
-     * @return  object
+     * @return  stdClass
      */
-    protected function get_metrics(): object {
+    protected function get_metrics(): stdClass {
         return (object) $this->metrics;
     }
 }

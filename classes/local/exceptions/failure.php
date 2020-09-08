@@ -24,6 +24,8 @@
 
 namespace enrol_oneroster\local\exceptions;
 
+use stdClass;
+
 /**
  * IMS Failure Exception.
  *
@@ -35,11 +37,11 @@ class failure extends exception {
     /**
      * Constructor for a new IMSx Exception.
      *
-     * @param   object $failure
+     * @param   stdClass $failure
      * @param   array $curlinfo
      * @param   moodle_url $url
      */
-    public function __construct(object $failure, array $curlinfo, moodle_url $url) {
+    public function __construct(stdClass $failure, array $curlinfo, moodle_url $url) {
         parent::__construct(
             sprintf(
                 "IMSx Exception (%s/%s): %s - %s (%d)",

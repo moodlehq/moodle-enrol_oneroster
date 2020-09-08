@@ -30,30 +30,28 @@ use enrol_oneroster\local\entity;
 use enrol_oneroster\local\endpoint;
 use enrol_oneroster\local\exceptions\not_found as not_found_exception;
 use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
-use enrol_oneroster\local\entities\{
     // Entities which resemble an org.
-    org as org_entity,
-    school as school_entity,
+use enrol_oneroster\local\entities\org as org_entity;
+use enrol_oneroster\local\entities\school as school_entity;
 
     // Entities which resemble a class.
-    class_entity,
+use enrol_oneroster\local\entities\class_entity;
 
     // Entities which resemble a course.
-    course as course_entity,
+use enrol_oneroster\local\entities\course as course_entity;
 
     // Entities which resemble an academicSession.
-    academic_session as academic_session_entity,
-    term as term_entity,
-    grading_period as grading_period_entity,
+use enrol_oneroster\local\entities\academic_session as academic_session_entity;
+use enrol_oneroster\local\entities\term as term_entity;
+use enrol_oneroster\local\entities\grading_period as grading_period_entity;
 
     // Entities which resemble a user.
-    user as user_entity,
-    student as student_entity,
-    teacher as teacher_entity,
+use enrol_oneroster\local\entities\user as user_entity;
+use enrol_oneroster\local\entities\student as student_entity;
+use enrol_oneroster\local\entities\teacher as teacher_entity;
 
     // Entities which resemble an enrollment.
-    enrollment as enrollment_entity,
-};
+use enrol_oneroster\local\entities\enrollment as enrollment_entity;
 use stdClass;
 
 /**
@@ -71,7 +69,7 @@ class entity_factory extends abstract_factory implements entity_factory_interfac
      *
      * @param   string $entitytype The type of entity
      * @param   string $id The sourcedId of the entity
-     * @param   filter|null Any filter
+     * @param   filter|null $filter Any filter to apply
      * @return  stdClass|null The data stored in the cache
      */
     protected function fetch_from_cache(string $entitytype, string $id, ?filter $filter = null): ?stdClass {
@@ -97,7 +95,7 @@ class entity_factory extends abstract_factory implements entity_factory_interfac
      *
      * @param   string $entitytype The type of entity
      * @param   string $id The sourcedId of the entity
-     * @param   stdClass The data to store
+     * @param   stdClass $data The data to store
      */
     protected function store_record_in_cache(string $entitytype, string $id, stdClass $data): void {
         $cache = $this->get_cache_for_type($entitytype);

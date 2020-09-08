@@ -36,8 +36,12 @@ use enrol_oneroster\local\endpoints\rostering as parent_endpoint;
  */
 class rostering extends parent_endpoint {
 
-    /** @const string Endpoint name to fetch classes for a user */
+    // @codingStandardsIgnoreStart UpperCaseConstantNameSniff
+
+    /** @var string Endpoint name to fetch classes for a user */
     const getClassesForUser = 'getClassesForUser';
+
+    // @codingStandardsIgnoreEnd UpperCaseConstantNameSniff
 
     /** @var array List of commands and their configuration */
     protected static $commands = [

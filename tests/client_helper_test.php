@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -58,16 +58,21 @@ class client_helper_testcase extends advanced_testcase {
         $this->assertInstanceOf($classname, $client);
     }
 
+    /**
+     * Data provider for testing valid client instantiation.
+     *
+     * @return array
+     */
     public function get_client_provider(): array {
         return [
             [
-                client_helper::oauth_10,
-                client_helper::version_v1p1,
+                client_helper::OAUTH_10,
+                client_helper::VERSION_V1P1,
                 \enrol_oneroster\local\v1p1\oauth1_client::class,
             ],
             [
-                client_helper::oauth_20,
-                client_helper::version_v1p1,
+                client_helper::OAUTH_20,
+                client_helper::VERSION_V1P1,
                 \enrol_oneroster\local\v1p1\oauth2_client::class,
             ],
         ];
@@ -93,15 +98,20 @@ class client_helper_testcase extends advanced_testcase {
         );
     }
 
+    /**
+     * Data provider for testing invalid client specification.
+     *
+     * @return  arrayt
+     */
     public function get_invalid_client_provider(): array {
         return [
             'Invalid oauth version' => [
-                client_helper::oauth_20 . '.0',
-                client_helper::version_v1p1,
+                client_helper::OAUTH_20 . '.0',
+                client_helper::VERSION_V1P1,
             ],
             'Invalid OneRoster version' => [
-                client_helper::oauth_20,
-                client_helper::version_v1p1 . '0',
+                client_helper::OAUTH_20,
+                client_helper::VERSION_V1P1 . '0',
             ],
         ];
     }

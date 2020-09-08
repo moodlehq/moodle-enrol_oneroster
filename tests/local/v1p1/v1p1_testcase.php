@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,12 +29,10 @@ require_once(__DIR__ . '/../oneroster_testcase.php');
 use enrol_oneroster\local\oneroster_testcase;
 
 use enrol_oneroster\local\v1p1\container;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    collection_factory as collection_factory_interface,
-    entity_factory as entity_factory_interface,
-    rostering_endpoint as rostering_endpoint_interface,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\collection_factory as collection_factory_interface;
+use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
+use enrol_oneroster\local\interfaces\rostering_endpoint as rostering_endpoint_interface;
 use enrol_oneroster\local\v1p1\endpoints\rostering as rostering_endpoint;
 use enrol_oneroster\local\v1p1\factories\collection_factory;
 use enrol_oneroster\local\v1p1\factories\entity_factory;
@@ -66,39 +64,6 @@ abstract class v1p1_testcase extends oneroster_testcase {
             ->getMock();
 
         $mock->method('get_client')->willReturn($client);
-
-        return $mock;
-    }
-
-    protected function mock_rostering_endpoint(container_interface $container, array $mockfunctions): rostering_endpoint_interface {
-        $mock = $this->getMockBuilder(rostering_endpoint::class)
-            ->setConstructorArgs([$container])
-            ->setMethods(array_values($mockfunctions))
-            ->getMock();
-
-        $container->method('get_rostering_endpoint')->willReturn($mock);
-
-        return $mock;
-    }
-
-    protected function mock_entity_factory(container_interface $container, array $mockfunctions): entity_factory_interface {
-        $mock = $this->getMockBuilder(entity_factory::class)
-            ->setConstructorArgs([$container])
-            ->setMethods(array_values($mockfunctions))
-            ->getMock();
-
-        $container->method('get_entity_factory')->willReturn($mock);
-
-        return $mock;
-    }
-
-    protected function mock_collection_factory(container_interface $container, array $mockfunctions): collection_factory_interface {
-        $mock = $this->getMockBuilder(collection_factory::class)
-            ->setConstructorArgs([$container])
-            ->setMethods(array_values($mockfunctions))
-            ->getMock();
-
-        $container->method('get_collection_factory')->willReturn($mock);
 
         return $mock;
     }

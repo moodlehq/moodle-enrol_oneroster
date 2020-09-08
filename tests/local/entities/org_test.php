@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -76,7 +76,7 @@ class org_testcase extends entity_testcase {
         $this->assertIsObject($data);
         $this->assertEquals('preloadedObject', $data->sourcedId);
 
-        // And it can be retrieved via `get()`
+        // And it can be retrieved via `get().
         $this->assertEquals('preloadedObject', $entity->get('sourcedId'));
 
         // Non-existent objects return null.
@@ -123,7 +123,6 @@ class org_testcase extends entity_testcase {
     public function test_get_missing_structure(): void {
         $container = $this->get_mocked_container();
 
-
         $rostering = $this->mock_rostering_endpoint($container, ['execute']);
         $rostering->method('execute')->willReturn((object) [
             'sourcedId' => 'foo',
@@ -133,7 +132,7 @@ class org_testcase extends entity_testcase {
         $this->expectException(OutOfRangeException::class);
 
         $entity = new org($container, '12345');
-        $data = $entity->get_data();
+        $entity->get_data();
     }
 
     /**
@@ -151,6 +150,11 @@ class org_testcase extends entity_testcase {
         $this->assertEquals($expected, $entity->get_course_category_data());
     }
 
+    /**
+     * Data provider for test_get_course_category_data.
+     *
+     * @return  array
+     */
     public function course_category_data_provider(): array {
         return [
             [

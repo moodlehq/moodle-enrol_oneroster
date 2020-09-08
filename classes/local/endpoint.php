@@ -27,12 +27,10 @@ namespace enrol_oneroster\local;
 use BadMethodCallException;
 use coding_exception;
 use enrol_oneroster\local\command;
-use enrol_oneroster\local\interfaces\{
-    client as client_interface,
-    container as container_interface,
-    endpoint as endpoint_interface,
-    filter as filter_interface,
-};
+use enrol_oneroster\local\interfaces\client as client_interface;
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\endpoint as endpoint_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
 use stdClass;
 
 /**
@@ -50,6 +48,11 @@ class endpoint implements endpoint_interface {
     /** @var array List of commands and their configuration */
     protected static $commands = [];
 
+    /**
+     * Constructor for the endpoint.
+     *
+     * @param   container_interface $container
+     */
     final public function __construct(container_interface $container) {
         $this->container = $container;
     }
@@ -67,7 +70,7 @@ class endpoint implements endpoint_interface {
      * Execeute the supplied method.
      *
      * @param   string $method
-     * @param   filter_interface $filter,
+     * @param   null|filter_interface $filter
      * @param   array $params
      * @return  mixed
      */
@@ -78,8 +81,8 @@ class endpoint implements endpoint_interface {
     /**
      * Execeute the supplied command.
      *
-     * @param   command $comand
-     * @param   filter_interface $filter,
+     * @param   command $command
+     * @param   null|filter_interface $filter
      * @return  mixed
      */
     public function execute_command(command $command, ?filter_interface $filter = null) {
@@ -90,8 +93,8 @@ class endpoint implements endpoint_interface {
      * Exeucte a function which returns a collection.
      *
      * @param   string $method
-     * @param   array $params
      * @param   filter_interface $filter
+     * @param   array $params
      * @param   callable $callback
      */
     public function execute_paginated_function(
@@ -125,7 +128,6 @@ class endpoint implements endpoint_interface {
             }
 
             if ($collection === null) {
-                print_object($response);
                 throw new coding_exception("Unable to find any collection in the response");
             }
 

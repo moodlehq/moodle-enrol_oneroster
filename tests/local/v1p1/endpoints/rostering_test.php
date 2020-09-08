@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -61,7 +61,7 @@ class rostering_testcase extends oneroster_testcase {
      *
      * @dataProvider    get_url_for_command_provider
      * @param   string $baseurl
-     * @param   string $endpoint
+     * @param   string $suffix
      * @param   string $expected
      */
     public function test_get_url_for_command(string $baseurl, string $suffix, string $expected): void {

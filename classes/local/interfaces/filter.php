@@ -34,11 +34,11 @@ namespace enrol_oneroster\local\interfaces;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 interface filter {
-    /* @const The join operator for AND */
+    /** @var string The join operator for AND */
     const AND = 'AND';
 
-    /* @const The join operator for OR */
-    const OR  = 'OR';
+    /** @var string The join operator for OR */
+    const OR = 'OR';
 
     /**
      * Constructor for a new filter.

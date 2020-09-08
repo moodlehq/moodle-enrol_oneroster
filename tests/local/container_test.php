@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -44,6 +44,7 @@ class container_testcase extends oneroster_testcase {
     /**
      * Get a mock of the abstract container.
      *
+     * @param   null|client_interface $client If not specifie then the client is also mocked
      * @return  container
      */
     public function get_mock_abstract_container(?client_interface $client = null): container {

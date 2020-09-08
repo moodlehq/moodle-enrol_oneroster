@@ -70,6 +70,8 @@ class command {
      * @param   string $method The Method to be called
      * @param   string $description The description of the command
      * @param   array $collection The collection name in the response
+     * @param   null|string $defaultsort The default sort column to apply
+     * @param   null|string $defaultsortorder The dierection to the sort order
      * @param   array $params The list of parameters to use
      */
     public function __construct(

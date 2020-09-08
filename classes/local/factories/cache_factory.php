@@ -22,12 +22,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace enrol_oneroster\local\v1p1\factories;
+namespace enrol_oneroster\local\factories;
 
 use cache;
-use enrol_oneroster\local\interfaces\{
-    cache_factory as cache_factory_interface,
-};
+use enrol_oneroster\local\interfaces\cache_factory as cache_factory_interface;
 
 /**
  * One Roster 1.1 Cache Factory.

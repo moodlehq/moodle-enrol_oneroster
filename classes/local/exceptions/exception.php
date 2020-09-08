@@ -28,7 +28,7 @@ use \Exception as base_exception;
 use moodle_url;
 
 /**
- * One Roster 1.1 Factory Manager.
+ * Generic OneRoster Exception.
  *
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
@@ -60,8 +60,8 @@ class exception extends base_exception {
     /**
      * Create a new IMSx Error of the appropriate type.
      *
-     * @param   object $failure
-     * @param   array $curlinfo
+     * @param   string $body
+     * @param   array $info
      * @param   moodle_url $url
      * @return  null|exception
      */
@@ -99,8 +99,8 @@ class exception extends base_exception {
     /**
      * Create a new Error from an HTTP Code.
      *
-     * @param   object $failure
-     * @param   array $curlinfo
+     * @param   string $body
+     * @param   array $info
      * @param   moodle_url $url
      * @return  null|exception
      */
@@ -142,9 +142,20 @@ class exception extends base_exception {
         return null;
     }
 
-
-    public static function check_and_throw_from_http_response(...$args): void {
-        if ($exception = self::create_from_http_response(...$args)) {
+    /**
+     * Check for any exception and throw if found.
+     *
+     * @param   string $body
+     * @param   array $info
+     * @param   moodle_url $url
+     * @return  null|exception
+     */
+    public static function check_and_throw_from_http_response(
+        string $body,
+        array $info,
+        moodle_url $url
+    ): void {
+        if ($exception = self::create_from_http_response($body, $info, $url)) {
             throw $exception;
         }
     }

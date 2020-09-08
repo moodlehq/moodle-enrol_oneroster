@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -93,6 +93,7 @@ class filter_testcase extends advanced_testcase {
      *
      * @dataProvider    add_filter_data_provider
      * @param   array $filters Constructor rags
+     * @param   string $jointype The type of join to apply
      * @param   string $expected The expected filter
      */
     public function test_add_filter(array $filters, string $jointype, string $expected): void {

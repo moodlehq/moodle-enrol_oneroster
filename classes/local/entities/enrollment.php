@@ -26,12 +26,9 @@ namespace enrol_oneroster\local\entities;
 
 use coding_exception;
 use enrol_oneroster\local\converter;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-
-    course_representation,
-    enrollment_representation,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\course_representation;
+use enrol_oneroster\local\interfaces\enrollment_representation;
 use enrol_oneroster\local\entity;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
 use stdClass;
@@ -80,7 +77,6 @@ class enrollment extends entity implements enrollment_representation {
      */
     protected static function parse_returned_row(container_interface $container, stdClass $data): stdClass {
         if (!property_exists($data, 'enrollment')) {
-            print_r($data);
             throw new coding_exception("The returned data is missing the 'enrollment' property");
         }
         return $data->enrollment;

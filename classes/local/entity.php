@@ -25,11 +25,9 @@
 namespace enrol_oneroster\local;
 
 use coding_exception;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    entity_factory as entity_factory_interface,
-    filter as filter_interface,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
 use stdClass;
 
 /**
@@ -41,13 +39,13 @@ use stdClass;
  */
 abstract class entity {
 
-    /* @var container_interface The container for the One Roster version */
+    /** @var container_interface The container for the One Roster version */
     protected $container;
 
-    /* @var string The sourcedId of the entity */
+    /** @var string The sourcedId of the entity */
     protected $id;
 
-    /* @var stdClass The retrieved data */
+    /** @var stdClass The retrieved data */
     protected $data;
 
     /**
@@ -147,6 +145,7 @@ abstract class entity {
     /**
      * Parse the data returned from the One Roster Endpoint.
      *
+     * @param   container_interface $container
      * @param   stdClass $data The raw data returned from the endpoint
      * @return  stdClass The parsed data
      */

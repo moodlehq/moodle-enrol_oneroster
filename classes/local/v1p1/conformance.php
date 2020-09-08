@@ -69,6 +69,9 @@ class conformance extends conformance_base {
     }
 
 
+    /**
+     * Run tests pertaining to OAuth, the connection, and URL parameters.
+     */
     protected function run_url_tests(): void {
         self::print_test_title("OAuth Features");
 
@@ -498,6 +501,7 @@ class conformance extends conformance_base {
 
         foreach ($collection as $result) {
             // The CTS endpoint does not support the 'fields' option.
+            continue;
         }
 
         // Note: The CTS endpoint does not return sorted data.
@@ -506,13 +510,17 @@ class conformance extends conformance_base {
 
     /**
      * Test Collection helper.
+     *
+     * @param   string $collectiontype The descriptive name of the collection
+     * @param   string $collectionname The class name of the collection to fetch
+     * @param   array $args
      */
     protected function test_collection_with_args(
         string $collectiontype,
         string $collectionname,
         array $args
     ): void {
-        // Endpoint: Collection
+        // Endpoint: Collection.
         self::print_test_header("Endpoint", $collectiontype);
 
         $collectionfn = "get_{$collectionname}";
@@ -547,7 +555,7 @@ class conformance extends conformance_base {
         ?string $entitytype,
         ?string $entityname
     ): void {
-        // Endpoint: Collection
+        // Endpoint: Collection.
         self::print_test_header("Endpoint", $collectiontype);
 
         $collectionfn = "get_{$collectionname}";

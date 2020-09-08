@@ -43,12 +43,14 @@ class converter {
      * @return  int
      */
     public static function from_date_to_unix(string $date): int {
-        // The One Roster specification describes dates as follows:
-        // `date`:  Denotes a date format.
-        //          Dates MUST be expressed using ISO 8601 format (http://tools.ietf.org/html/rfc3339), more commonly
-        //          formatted as "YYYY-MM-DD" e.g. "2002-04-23"
-        //
-        // Source https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480452032.
+        /*
+         * The One Roster specification describes dates as follows:
+         * `date`:  Denotes a date format.
+         *          Dates MUST be expressed using ISO 8601 format (http://tools.ietf.org/html/rfc3339), more commonly
+         *          formatted as "YYYY-MM-DD" e.g. "2002-04-23"
+         *
+         * Source https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480452032.
+         */
         $datetime = DateTime::createFromFormat(
             'Y-m-d',
             $date,
@@ -66,12 +68,14 @@ class converter {
      * @return  int
      */
     public static function from_datetime_to_unix(string $date): int {
-        // The One Roster specification describes dates as follows:
-        // `date`:  Denotes a timestamp format.
-        //          DateTimes MUST be expressed in W3C profile of ISO 8601 and MUST contain the UTC timezone e.g.
-        //          "2012-04-23T18:25:43.511Z"
-        //
-        // Source https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480452032.
+        /*
+         * The One Roster specification describes dates as follows:
+         * `date`:  Denotes a timestamp format.
+         *          DateTimes MUST be expressed in W3C profile of ISO 8601 and MUST contain the UTC timezone e.g.
+         *          "2012-04-23T18:25:43.511Z"
+         *
+         * Source https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480452032.
+         */
         $datetime = DateTime::createFromFormat(
             'Y-m-d\TG:i:s.+',
             $date,

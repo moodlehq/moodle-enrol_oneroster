@@ -26,10 +26,8 @@ namespace enrol_oneroster\local\entities;
 
 use coding_exception;
 use enrol_oneroster\local\filter;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    coursecat_representation,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\coursecat_representation;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
 use enrol_oneroster\local\entity;
 use stdClass;
@@ -95,7 +93,6 @@ class org extends entity implements coursecat_representation {
      * @return  stdClass
      */
     public function get_course_category_data(): stdClass {
-        $data = $this->get_data();
         return (object) [
             'idnumber' => $this->get('sourcedId'),
             'name' => $this->get('name'),

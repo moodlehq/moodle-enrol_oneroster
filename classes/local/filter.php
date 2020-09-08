@@ -37,10 +37,10 @@ use enrol_oneroster\local\interfaces\filter as filter_interface;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class filter implements filter_interface {
-    /* @var string[] The current search filters */
+    /** @var string[] The current search filters */
     protected $filters = [];
 
-    /* @var string The current logical operator */
+    /** @var string The current logical operator */
     protected $logicaloperator = 'AND';
 
     /**

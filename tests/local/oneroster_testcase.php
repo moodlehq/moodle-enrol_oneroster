@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,14 +25,12 @@
 namespace enrol_oneroster\local;
 
 use advanced_testcase;
-use enrol_oneroster\local\interfaces\{
-    client as client_interface,
-    container as container_interface,
-    collection_factory as collection_factory_interface,
-    entity_factory as entity_factory_interface,
-    filter as filter_interface,
-    rostering_endpoint as rostering_endpoint_interface,
-};
+use enrol_oneroster\local\interfaces\client as client_interface;
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\collection_factory as collection_factory_interface;
+use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
+use enrol_oneroster\local\interfaces\rostering_endpoint as rostering_endpoint_interface;
 use enrol_oneroster\local\filter as abstract_filter;
 use enrol_oneroster\local\oneroster_client as root_oneroster_client;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
@@ -49,6 +47,8 @@ use enrol_oneroster\local\factories\entity_factory;
 abstract class oneroster_testcase extends advanced_testcase {
     /**
      * Get a mocked container.
+     *
+     * @return  container_interface
      */
     protected function get_mocked_container(): container_interface {
         $client = $this->mock_client();
@@ -71,15 +71,32 @@ abstract class oneroster_testcase extends advanced_testcase {
         return $mock;
     }
 
+    /**
+     * Mock a filter.
+     *
+     * @return filter_interface
+     */
     protected function mock_filter(): filter_interface {
         return $this->createMock(abstract_filter::class);
     }
 
+    /**
+     * Mock a OneRoster Client.
+     *
+     * @return  client_interface
+     */
     protected function mock_client(): client_interface {
         require_once(__DIR__ . '/../fixtures/oneroster_client.php');
         return $this->createMock(\enrol_oneroster\tests\fixtures\local\oneroster_client::class);
     }
 
+    /**
+     * Mock the Rostering endpoint.
+     *
+     * @param   container_interface $container
+     * @param   array $mockfunctions The functions to be mocked
+     * @return  rostering_endpoint_interface
+     */
     protected function mock_rostering_endpoint(container_interface $container, array $mockfunctions): rostering_endpoint_interface {
         $mock = $this->getMockBuilder(rostering_endpoint::class)
             ->setConstructorArgs([$container])
@@ -91,6 +108,13 @@ abstract class oneroster_testcase extends advanced_testcase {
         return $mock;
     }
 
+    /**
+     * Mock an entity factory.
+     *
+     * @param   container_interface $container
+     * @param   array $mockfunctions The functions to be mocked
+     * @return  entity_factory_interface
+     */
     protected function mock_entity_factory(container_interface $container, array $mockfunctions): entity_factory_interface {
         $mock = $this->getMockBuilder(entity_factory::class)
             ->setConstructorArgs([$container])
@@ -102,6 +126,13 @@ abstract class oneroster_testcase extends advanced_testcase {
         return $mock;
     }
 
+    /**
+     * Mock a Collection factory.
+     *
+     * @param   container_interface $container
+     * @param   array $mockfunctions The functions to be mocked
+     * @return  collection_factory_interface
+     */
     protected function mock_collection_factory(container_interface $container, array $mockfunctions): collection_factory_interface {
         $mock = $this->getMockBuilder(collection_factory::class)
             ->setConstructorArgs([$container])

@@ -14,20 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * Coverage information for the enrol_oneroster component.
+ * One Roster Enrolment Client.
  *
  * @package    enrol_oneroster
- * @category   phpunit
- * @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
+ * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
+// @codingStandardsIgnoreFile InlineCommentSniff
 /**
  * Coverage information for the enrol_oneroster component.
  *
+ * @category   test
  * @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

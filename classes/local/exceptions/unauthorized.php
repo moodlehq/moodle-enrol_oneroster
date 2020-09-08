@@ -27,14 +27,13 @@ namespace enrol_oneroster\local\exceptions;
 use moodle_url;
 
 /**
- * Unauthorized - the Request requires authorization.
- * Error 401.
+ * Unauthorized - the Request requires authorization (Error 401).
  *
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class bad_request extends exception {
+class unauthorized extends exception {
 
     /**
      * Constructor for a new IMSx Exception.

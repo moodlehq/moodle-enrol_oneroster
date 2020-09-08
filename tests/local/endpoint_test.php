@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -39,6 +39,15 @@ use enrol_oneroster\local\oneroster_testcase;
  */
 class endpoint_testcase extends oneroster_testcase {
 
+    /**
+     * Get a mocked command at the specified endpoint.
+     *
+     * @param   endpoint $endpoint
+     * @param   string $method
+     * @param   array $params
+     * @param   array|null $collection
+     * @return  command
+     */
     protected function get_mocked_command(endpoint $endpoint, string $method, array $params, ?array $collection = null): command {
         return $this->getMockBuilder(command::class)
             ->setConstructorArgs([
@@ -144,8 +153,8 @@ class endpoint_testcase extends oneroster_testcase {
                 'response' => 'Example response',
             ]);
 
-        $endpoint->execute_command($command, $filter);
-        //$this->assertequals('Example response', $endpoint->execute_command($command, $filter));
+        $result = $endpoint->execute_command($command, $filter);
+        $this->assertEquals('Example response', $result);
     }
 
     /**
@@ -196,7 +205,6 @@ class endpoint_testcase extends oneroster_testcase {
 
         $client = $container->get_client();
         $client
-            //->expects($this->once())
             ->method('execute')
             ->withConsecutive(
                 [$this->equalTo($command1), $this->equalTo($filter)],
