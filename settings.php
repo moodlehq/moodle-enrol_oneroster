@@ -56,9 +56,9 @@ if ($ADMIN->fulltree) {
         'enrol_oneroster/oneroster_version',
         get_string('settings_connection_oneroster_version', 'enrol_oneroster'),
         get_string('settings_connection_oneroster_version_desc', 'enrol_oneroster'),
-        enrol_oneroster\client_helper::version_v1p1,
+        enrol_oneroster\client_helper::VERSION_V1P1,
         [
-            enrol_oneroster\client_helper::version_v1p1 => get_string('settings_connection_v1p1', 'enrol_oneroster'),
+            enrol_oneroster\client_helper::VERSION_V1P1 => get_string('settings_connection_v1p1', 'enrol_oneroster'),
         ]
     ));
 
@@ -69,10 +69,10 @@ if ($ADMIN->fulltree) {
         'enrol_oneroster/oauth_version',
         get_string('settings_connection_oauth_version', 'enrol_oneroster'),
         get_string('settings_connection_oauth_version_desc', 'enrol_oneroster'),
-        enrol_oneroster\client_helper::oauth_20,
+        enrol_oneroster\client_helper::OAUTH_20,
         [
-            enrol_oneroster\client_helper::oauth_10 => get_string('settings_connection_oauth_1', 'enrol_oneroster'),
-            enrol_oneroster\client_helper::oauth_20 => get_string('settings_connection_oauth_2', 'enrol_oneroster'),
+            enrol_oneroster\client_helper::OAUTH_10 => get_string('settings_connection_oauth_1', 'enrol_oneroster'),
+            enrol_oneroster\client_helper::OAUTH_20 => get_string('settings_connection_oauth_2', 'enrol_oneroster'),
         ]
     ));
 

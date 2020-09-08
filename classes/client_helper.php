@@ -38,16 +38,16 @@ use moodle_url;
  */
 class client_helper {
     /** @const One Roster Version 1.1 */
-    const version_v1p1 = 'v1p1';
+    const VERSION_V1P1 = 'v1p1';
 
     /** @const One Roster Version 1.2 */
-    const version_v1p2 = 'v1p2';
+    const VERSION_V1P2 = 'v1p2';
 
     /** @const Version 1.0 of the OAuth specification */
-    const oauth_10 = 'oauth1';
+    const OAUTH_10 = 'oauth1';
 
     /** @const Version 2.0 of the OAuth specification */
-    const oauth_20 = 'oauth2';
+    const OAUTH_20 = 'oauth2';
 
     /** @const A POST request */
     const POST = 'POST';

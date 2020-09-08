@@ -25,7 +25,7 @@ use enrol_oneroster\client_helper;
 [$options, $unrecognized] = cli_get_params(
     [
         'help' => false,
-        'oauth' => client_helper::oauth_20,
+        'oauth' => client_helper::OAUTH_20,
         'tokenurl' => 'https://oauth2server.imsglobal.org/oauth2server/clienttoken',
         'rooturl' => 'https://onerostervalidator.imsglobal.org:8443/oneroster-client-cts-endpoint',
         'clientid' => '',
@@ -81,7 +81,7 @@ EOF;
 
 $client = enrol_oneroster\client_helper::get_client(
     $options['oauth'],
-    enrol_oneroster\client_helper::version_v1p1,
+    enrol_oneroster\client_helper::VERSION_V1P1,
     $options['tokenurl'],
     $options['rooturl'],
     $options['clientid'],
@@ -98,7 +98,7 @@ $conformancesuite::print_test_data("Token server", $options['tokenurl']);
 $conformancesuite::print_test_data("Client Id", $options['clientid']);
 $conformancesuite::print_test_data("Client Secret", $options['secret']);
 
-if ($options['oauth'] === client_helper::oauth_20) {
+if ($options['oauth'] === client_helper::OAUTH_20) {
     $conformancesuite->authenticate();
 }
 $conformancesuite->run_all_tests();

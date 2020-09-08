@@ -61,13 +61,13 @@ class client_helper_testcase extends advanced_testcase {
     public function get_client_provider(): array {
         return [
             [
-                client_helper::oauth_10,
-                client_helper::version_v1p1,
+                client_helper::OAUTH_10,
+                client_helper::VERSION_V1P1,
                 \enrol_oneroster\local\v1p1\oauth1_client::class,
             ],
             [
-                client_helper::oauth_20,
-                client_helper::version_v1p1,
+                client_helper::OAUTH_20,
+                client_helper::VERSION_V1P1,
                 \enrol_oneroster\local\v1p1\oauth2_client::class,
             ],
         ];
@@ -96,12 +96,12 @@ class client_helper_testcase extends advanced_testcase {
     public function get_invalid_client_provider(): array {
         return [
             'Invalid oauth version' => [
-                client_helper::oauth_20 . '.0',
-                client_helper::version_v1p1,
+                client_helper::OAUTH_20 . '.0',
+                client_helper::VERSION_V1P1,
             ],
             'Invalid OneRoster version' => [
-                client_helper::oauth_20,
-                client_helper::version_v1p1 . '0',
+                client_helper::OAUTH_20,
+                client_helper::VERSION_V1P1 . '0',
             ],
         ];
     }
