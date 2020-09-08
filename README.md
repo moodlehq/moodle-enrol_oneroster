@@ -1,5 +1,5 @@
 # Moodle OneRoster Enrolment plugin
-[![GitHub Release](https://img.shields.io/github/v/release/moodlehq/moodle-enrol_oneroster)](https://github.com/moodlehq//moodle-enrol_oneroster/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/moodlehq/moodle-enrol_oneroster?include_prereleases)](https://github.com/moodlehq/moodle-enrol_oneroster/releases)
 [![Build Status](https://travis-ci.org/moodlehq/moodle-enrol_oneroster.svg?branch=main)](https://travis-ci.org/moodlehq/moodle-enrol_oneroster)
 
 
