@@ -883,10 +883,10 @@ EOF;
     /**
      * Create a user mapping entry.
      *
-     * @param   object $user
+     * @param   stdClass $user
      * @param   string $mappedid
      */
-    protected function create_user_mapping(object $user, string $mappedid): void {
+    protected function create_user_mapping(stdClass $user, string $mappedid): void {
         global $DB;
 
         $DB->insert_record('enrol_oneroster_user_map', (object) [
@@ -931,9 +931,9 @@ EOF;
     /**
      * Fetch the recorded tracking metrics.
      *
-     * @return  object
+     * @return  stdClass
      */
-    protected function get_metrics(): object {
+    protected function get_metrics(): stdClass {
         return (object) $this->metrics;
     }
 }
