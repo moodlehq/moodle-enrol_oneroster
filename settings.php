@@ -49,8 +49,9 @@ if ($ADMIN->fulltree) {
     ));
 
     // One Roster version:
-    // - 1.1 (current); and
-    // - 1.2 (next - not yet supported).
+    // - Version 1.0 (obsolete - not currently supported);
+    // - Version 1.1 (current); and
+    // - Version 1.2 (next - not yet supported).
     $settings->add(new admin_setting_configselect(
         'enrol_oneroster/oneroster_version',
         get_string('settings_connection_oneroster_version', 'enrol_oneroster'),
@@ -75,7 +76,7 @@ if ($ADMIN->fulltree) {
         ]
     ));
 
-    // - OAuth Token URL.
+    // Connection settings - OAuth Token URL.
     $settings->add(new admin_setting_configtext(
         'enrol_oneroster/token_url',
         get_string('settings_connection_token_url', 'enrol_oneroster'),
@@ -83,7 +84,7 @@ if ($ADMIN->fulltree) {
         ''
     ));
 
-    // - One Roster Root URL.
+    // Connection settings - One Roster Root URL.
     $settings->add(new admin_setting_configtext(
         'enrol_oneroster/root_url',
         get_string('settings_connection_root_url', 'enrol_oneroster'),
@@ -91,7 +92,7 @@ if ($ADMIN->fulltree) {
         ''
     ));
 
-    // - OAuth Client.
+    // Connection settings - OAuth Client.
     $settings->add(new admin_setting_configtext(
         'enrol_oneroster/clientid',
         get_string('settings_connection_clientid', 'enrol_oneroster'),
@@ -99,7 +100,7 @@ if ($ADMIN->fulltree) {
         ''
     ));
 
-    // - OAuth Secret.
+    // Connection settings - OAuth Secret.
     $settings->add(new admin_setting_configpasswordunmask(
         'enrol_oneroster/secret',
         get_string('settings_connection_secret', 'enrol_oneroster'),

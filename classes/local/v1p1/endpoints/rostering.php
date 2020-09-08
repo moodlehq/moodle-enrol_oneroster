@@ -33,11 +33,16 @@ use enrol_oneroster\local\endpoints\rostering as parent_endpoint;
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @SuppressWarnings(PHPMD.ConstantNamingConventions)
  */
 class rostering extends parent_endpoint {
 
+    // @codingStandardsIgnoreStart UpperCaseConstantNameSniff
+
     /** @const string Endpoint name to fetch classes for a user */
     const getClassesForUser = 'getClassesForUser';
+
+    // @codingStandardsIgnoreEnd UpperCaseConstantNameSniff
 
     /** @var array List of commands and their configuration */
     protected static $commands = [

@@ -25,10 +25,8 @@
 namespace enrol_oneroster\local\interfaces;
 
 use enrol_oneroster\local\command;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    filter,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\filter;
 use progress_trace;
 use stdClass;
 

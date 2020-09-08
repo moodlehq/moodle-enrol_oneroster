@@ -26,11 +26,9 @@ namespace enrol_oneroster\local;
 
 use IteratorAggregate;
 use Traversable;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    entity_factory as entity_factory_interface,
-    filter as filter_interface,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
 use stdClass;
 
 /**
@@ -63,7 +61,12 @@ abstract class collection implements IteratorAggregate {
      * @param   container_interface $container The container to which this entity belongs
      * @param   array $params All of the parameters, including those required as filter args
      */
-    public function __construct(container_interface $container, array $params = [], ?filter $filter = null, callable $recordfilter = null) {
+    public function __construct(
+        container_interface $container,
+        array $params = [],
+        ?filter $filter = null,
+        callable $recordfilter = null
+    ) {
         $this->container = $container;
 
         $this->filter = $this->process_filter($filter);
@@ -80,7 +83,7 @@ abstract class collection implements IteratorAggregate {
      *
      * @return  Traversable
      */
-    public function getIterator(): Traversable {
+    public function getIterator(): Traversable { // @codingStandardsIgnoreLine
         return $this->get_data();
     }
 

@@ -25,10 +25,7 @@
 namespace enrol_oneroster\local\v1p1\factories;
 
 use cache;
-use enrol_oneroster\local\factories\abstract_factory;
-use enrol_oneroster\local\interfaces\{
-    cache_factory as cache_factory_interface,
-};
+use enrol_oneroster\local\factories\cache_factory as parent_cache_factory;
 
 /**
  * One Roster 1.1 Cache Factory.
@@ -37,7 +34,7 @@ use enrol_oneroster\local\interfaces\{
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class cache_factory extends abstract_factory implements cache_factory_interface {
+class cache_factory extends parent_cache_factory {
 
     /**
      * Get the organisation entity cache.

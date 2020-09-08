@@ -25,55 +25,51 @@
 namespace enrol_oneroster\local\factories;
 
 use enrol_oneroster\local\interfaces\collection_factory as collection_factory_interface;
-use enrol_oneroster\local\collections\{
     // Entities which resemble an org.
-    orgs as orgs_collection,
-    schools as schools_collection,
+use enrol_oneroster\local\collections\orgs as orgs_collection;
+use enrol_oneroster\local\collections\schools as schools_collection;
 
     // Entities which resemble a class.
-    classes as classes_collection,
-    classes_for_course as classes_for_course_collection,
-    classes_for_school as classes_for_school_collection,
-    classes_for_term as classes_for_term_collection,
-    classes_for_student as classes_for_student_collection,
-    classes_for_teacher as classes_for_teacher_collection,
+use enrol_oneroster\local\collections\classes as classes_collection;
+use enrol_oneroster\local\collections\classes_for_course as classes_for_course_collection;
+use enrol_oneroster\local\collections\classes_for_school as classes_for_school_collection;
+use enrol_oneroster\local\collections\classes_for_term as classes_for_term_collection;
+use enrol_oneroster\local\collections\classes_for_student as classes_for_student_collection;
+use enrol_oneroster\local\collections\classes_for_teacher as classes_for_teacher_collection;
 
     // Entities which resemble a course.
-    courses as courses_collection,
-    courses_for_school as courses_for_school_collection,
+use enrol_oneroster\local\collections\courses as courses_collection;
+use enrol_oneroster\local\collections\courses_for_school as courses_for_school_collection;
 
     // Entities which resemble an academicSession.
-    academic_sessions as academic_sessions_collection,
-    terms as terms_collection,
-    terms_for_school as terms_for_school_collection,
-    grading_periods as grading_periods_collection,
-    grading_periods_for_term as grading_periods_for_term_collection,
+use enrol_oneroster\local\collections\academic_sessions as academic_sessions_collection;
+use enrol_oneroster\local\collections\terms as terms_collection;
+use enrol_oneroster\local\collections\terms_for_school as terms_for_school_collection;
+use enrol_oneroster\local\collections\grading_periods as grading_periods_collection;
+use enrol_oneroster\local\collections\grading_periods_for_term as grading_periods_for_term_collection;
 
     // Entities which resemble a user.
-    users as users_collection,
-    students as students_collection,
-    teachers as teachers_collection,
+use enrol_oneroster\local\collections\users as users_collection;
+use enrol_oneroster\local\collections\students as students_collection;
+use enrol_oneroster\local\collections\teachers as teachers_collection;
 
-    students_for_class as students_for_class_collection,
-    students_for_school as students_for_school_collection,
-    students_for_class_in_school as students_for_class_in_school_collection,
+use enrol_oneroster\local\collections\students_for_class as students_for_class_collection;
+use enrol_oneroster\local\collections\students_for_school as students_for_school_collection;
+use enrol_oneroster\local\collections\students_for_class_in_school as students_for_class_in_school_collection;
 
-    teachers_for_class as teachers_for_class_collection,
-    teachers_for_school as teachers_for_school_collection,
-    teachers_for_class_in_school as teachers_for_class_in_school_collection,
+use enrol_oneroster\local\collections\teachers_for_class as teachers_for_class_collection;
+use enrol_oneroster\local\collections\teachers_for_school as teachers_for_school_collection;
+use enrol_oneroster\local\collections\teachers_for_class_in_school as teachers_for_class_in_school_collection;
 
     // Entities which resemble an enrollment.
-    enrollments as enrollments_collection,
-    enrollments_for_school as enrollments_for_school_collection,
-    enrollments_for_class_in_school as enrollments_for_class_in_school_collection,
-};
-use enrol_oneroster\local\entities\{
-    school as school_entity,
-    course as course_entity,
-    term as term_entity,
-    class_entity,
-    user as user_entity,
-};
+use enrol_oneroster\local\collections\enrollments as enrollments_collection;
+use enrol_oneroster\local\collections\enrollments_for_school as enrollments_for_school_collection;
+use enrol_oneroster\local\collections\enrollments_for_class_in_school as enrollments_for_class_in_school_collection;
+use enrol_oneroster\local\entities\school as school_entity;
+use enrol_oneroster\local\entities\course as course_entity;
+use enrol_oneroster\local\entities\term as term_entity;
+use enrol_oneroster\local\entities\class_entity;
+use enrol_oneroster\local\entities\user as user_entity;
 use enrol_oneroster\local\filter;
 
 /**

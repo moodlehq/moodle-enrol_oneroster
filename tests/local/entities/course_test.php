@@ -73,7 +73,7 @@ class course_testcase extends entity_testcase {
         $this->assertIsObject($data);
         $this->assertEquals('preloadedObject', $data->sourcedId);
 
-        // And it can be retrieved via `get()`
+        // And it can be retrieved via `get().
         $this->assertEquals('preloadedObject', $entity->get('sourcedId'));
 
         // Non-existent objects return null.
@@ -119,7 +119,6 @@ class course_testcase extends entity_testcase {
      */
     public function test_get_missing_structure(): void {
         $container = $this->get_mocked_container();
-
 
         $rostering = $this->mock_rostering_endpoint($container, ['execute']);
         $rostering->method('execute')->willReturn((object) [

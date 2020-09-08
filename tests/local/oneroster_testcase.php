@@ -25,14 +25,12 @@
 namespace enrol_oneroster\local;
 
 use advanced_testcase;
-use enrol_oneroster\local\interfaces\{
-    client as client_interface,
-    container as container_interface,
-    collection_factory as collection_factory_interface,
-    entity_factory as entity_factory_interface,
-    filter as filter_interface,
-    rostering_endpoint as rostering_endpoint_interface,
-};
+use enrol_oneroster\local\interfaces\client as client_interface;
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\collection_factory as collection_factory_interface;
+use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
+use enrol_oneroster\local\interfaces\rostering_endpoint as rostering_endpoint_interface;
 use enrol_oneroster\local\filter as abstract_filter;
 use enrol_oneroster\local\oneroster_client as root_oneroster_client;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;

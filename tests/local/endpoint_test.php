@@ -144,8 +144,8 @@ class endpoint_testcase extends oneroster_testcase {
                 'response' => 'Example response',
             ]);
 
-        $endpoint->execute_command($command, $filter);
-        //$this->assertequals('Example response', $endpoint->execute_command($command, $filter));
+        $result = $endpoint->execute_command($command, $filter);
+        $this->assertEquals('Example response', $result);
     }
 
     /**
@@ -196,7 +196,6 @@ class endpoint_testcase extends oneroster_testcase {
 
         $client = $container->get_client();
         $client
-            //->expects($this->once())
             ->method('execute')
             ->withConsecutive(
                 [$this->equalTo($command1), $this->equalTo($filter)],

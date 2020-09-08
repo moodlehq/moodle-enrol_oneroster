@@ -27,12 +27,10 @@ namespace enrol_oneroster\local\entities;
 use coding_exception;
 use enrol_oneroster\local\converter;
 use enrol_oneroster\local\collections\enrollments as enrollments_collection;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    course_representation,
-    user_representation,
-    coursecat_representation,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\course_representation;
+use enrol_oneroster\local\interfaces\user_representation;
+use enrol_oneroster\local\interfaces\coursecat_representation;
 use enrol_oneroster\local\entity;
 use enrol_oneroster\local\filter;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
@@ -116,14 +114,12 @@ class class_entity extends entity implements course_representation {
      * @return  stdClass
      */
     public function get_course_data(): stdClass {
-        $data = $this->get_data();
         $coursedata = (object) [
             'idnumber' => $this->get('sourcedId'),
             'fullname' => $this->get('title'),
 
             // Note: The courseCode is not guaranteed to be unique.
             // This may need to be adjusted accordingly, or using an admin setting.
-            //'shortname' => $this->get_course()->get('courseCode'),
             'shortname' => $this->get('sourcedId'),
 
             // Valid states are 'active' or 'tobedeleted'.

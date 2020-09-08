@@ -48,7 +48,13 @@ class settings {
      * @param   array $roles A mapping of roleid => display name for relevant roles
      * @param   null|string $default The default value
      */
-    public static function add_role_mapping(part_of_admin_tree $settings, string $shortname, array $allroles, array $roles, $default = 0): void {
+    public static function add_role_mapping(
+        part_of_admin_tree $settings,
+        string $shortname,
+        array $allroles,
+        array $roles,
+        $default = 0
+    ): void {
         $settings->add(new admin_setting_configselect(
             "enrol_oneroster/role_mapping_{$shortname}",
             get_string("settings_rolemapping_{$shortname}", 'enrol_oneroster'),

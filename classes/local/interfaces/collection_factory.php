@@ -31,4 +31,5 @@ namespace enrol_oneroster\local\interfaces;
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-interface collection_factory {}
+interface collection_factory {
+}

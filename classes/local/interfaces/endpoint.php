@@ -27,11 +27,9 @@ namespace enrol_oneroster\local\interfaces;
 use BadMethodCallException;
 use coding_exception;
 use enrol_oneroster\local\command;
-use enrol_oneroster\local\interfaces\{
-    client as client_interface,
-    container as container_interface,
-    filter as filter_interface,
-};
+use enrol_oneroster\local\interfaces\client as client_interface;
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
 use stdClass;
 
 /**

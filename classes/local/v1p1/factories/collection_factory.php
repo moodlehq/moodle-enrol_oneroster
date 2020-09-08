@@ -25,13 +25,9 @@
 namespace enrol_oneroster\local\v1p1\factories;
 
 use enrol_oneroster\local\factories\collection_factory as parent_collection_factory;
-use enrol_oneroster\local\v1p1\collections\{
-    // Entities which resemble a class.
-    classes_for_user as classes_for_user_collection,
-};
-use enrol_oneroster\local\entities\{
-    user as user_entity,
-};
+// Entities which resemble a class.
+use enrol_oneroster\local\v1p1\collections\classes_for_user as classes_for_user_collection;
+use enrol_oneroster\local\entities\user as user_entity;
 use enrol_oneroster\local\filter;
 
 /**

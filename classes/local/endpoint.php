@@ -27,12 +27,10 @@ namespace enrol_oneroster\local;
 use BadMethodCallException;
 use coding_exception;
 use enrol_oneroster\local\command;
-use enrol_oneroster\local\interfaces\{
-    client as client_interface,
-    container as container_interface,
-    endpoint as endpoint_interface,
-    filter as filter_interface,
-};
+use enrol_oneroster\local\interfaces\client as client_interface;
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\endpoint as endpoint_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
 use stdClass;
 
 /**
@@ -125,7 +123,6 @@ class endpoint implements endpoint_interface {
             }
 
             if ($collection === null) {
-                print_object($response);
                 throw new coding_exception("Unable to find any collection in the response");
             }
 

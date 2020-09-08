@@ -16,18 +16,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// @codingStandardsIgnoreFile InlineCommentSniff
 /**
  * Coverage information for the enrol_oneroster component.
  *
  * @package    enrol_oneroster
  * @category   phpunit
- * @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-/**
- * Coverage information for the enrol_oneroster component.
- *
  * @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

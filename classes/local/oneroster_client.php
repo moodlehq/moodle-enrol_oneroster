@@ -29,12 +29,10 @@ namespace enrol_oneroster\local;
 use BadMethodCallException;
 use enrol_oneroster\client_helper;
 use enrol_oneroster\local\command;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    filter,
-    rostering_client,
-    rostering_endpoint,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\filter;
+use enrol_oneroster\local\interfaces\rostering_client;
+use enrol_oneroster\local\interfaces\rostering_endpoint;
 use enrol_oneroster\plugin as enrol_oneroster_plugin;
 use moodle_exception;
 use moodle_url;
@@ -125,7 +123,7 @@ trait oneroster_client {
         if ($sort) {
             $url->param('sort', $sort);
             if ($sortorder = $command->get_sort_order()) {
-                $url->param('orderBy', $command->get_sort_order());
+                $url->param('orderBy', $sortorder);
             }
         }
 
@@ -166,7 +164,6 @@ trait oneroster_client {
         $response = json_decode($result);
 
         if (is_null($response)) {
-            print_object($info);
             throw new moodle_exception("Could not decode JSON token response: " . $result);
         }
 

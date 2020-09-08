@@ -25,20 +25,19 @@
 namespace enrol_oneroster\local\entities;
 
 use enrol_oneroster\local\interfaces\container as container_interface;
-use enrol_oneroster\local\collections\{
-    classes as classes_collection,
-    classes_for_school as classes_for_school_collection,
+use enrol_oneroster\local\collections\classes as classes_collection;
+use enrol_oneroster\local\collections\classes_for_school as classes_for_school_collection;
 
-    courses as courses_collection,
-    courses_for_school as courses_for_school_collection,
+use enrol_oneroster\local\collections\courses as courses_collection;
+use enrol_oneroster\local\collections\courses_for_school as courses_for_school_collection;
 
-    terms as terms_collection,
-    terms_for_school as terms_for_school_collection,
+use enrol_oneroster\local\collections\terms as terms_collection;
+use enrol_oneroster\local\collections\terms_for_school as terms_for_school_collection;
 
-    users as users_collection,
+use enrol_oneroster\local\collections\users as users_collection;
 
-    enrollments as enrollments_collection,
-};
+use enrol_oneroster\local\collections\enrollments as enrollments_collection;
+
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
 use enrol_oneroster\local\filter;
 use stdClass;
@@ -126,7 +125,7 @@ class school extends org {
         ?filter $filter = null,
         ?callable $recordfilter = null
     ): users_collection {
-        // Note: This list of users must be re-filtered because some endpoints
+        // Note: This list of users must be re-filtered because some endpoints.
         return $this->container->get_collection_factory()->get_users_for_school($this, $params, $filter, $recordfilter);
     }
 

@@ -26,6 +26,8 @@
 
 namespace enrol_oneroster\local;
 
+defined('MOODLE_INTERNAL') || die;
+
 require_once($CFG->dirroot . '/lib/oauthlib.php');
 
 use moodle_url;
@@ -67,8 +69,6 @@ abstract class oauth1_client extends abstract_oauth_client {
         parent::__construct([
             'oauth_consumer_key' => $clientid,
             'oauth_consumer_secret' => $clientsecret,
-            //'authorize_url' => $tokenurl,
-
             'api_root' => $server,
         ]);
         $this->access_token = '';
@@ -87,7 +87,8 @@ abstract class oauth1_client extends abstract_oauth_client {
      *
      * Not required for OAuth 1.0.
      */
-    public function authenticate(): void {}
+    public function authenticate(): void {
+    }
 
     public function get_request_info(): array {
         return $this->http->info;

@@ -29,13 +29,11 @@ require_once(__DIR__ . '/entity_testcase.php');
 use enrol_oneroster\local\entities\entity_testcase;
 
 use enrol_oneroster\local\interfaces\coursecat_representation;
-use enrol_oneroster\local\collections\{
-    courses_for_school as courses_for_school_collection,
-    terms_for_school as terms_for_school_collection,
-    classes_for_school as classes_for_school_collection,
-    users as users_collection,
-    enrollments_for_school as enrollments_for_school_collection,
-};
+use enrol_oneroster\local\collections\courses_for_school as courses_for_school_collection;
+use enrol_oneroster\local\collections\terms_for_school as terms_for_school_collection;
+use enrol_oneroster\local\collections\classes_for_school as classes_for_school_collection;
+use enrol_oneroster\local\collections\users as users_collection;
+use enrol_oneroster\local\collections\enrollments_for_school as enrollments_for_school_collection;
 use enrol_oneroster\local\filter;
 use stdClass;
 use OutOfRangeException;
@@ -137,7 +135,8 @@ class school_testcase extends entity_testcase {
 
         $params = ['sort' => 'sourcedId'];
         $filter = $this->mock_filter();
-        $latefilter = function() {};
+        $latefilter = function() {
+        };
         $coursesforschool = new courses_for_school_collection($container);
 
         $collectionfactory = $this->mock_collection_factory($container, ['get_courses_for_school']);
@@ -194,7 +193,8 @@ class school_testcase extends entity_testcase {
 
         $params = ['sort' => 'sourcedId'];
         $filter = $this->mock_filter();
-        $latefilter = function() {};
+        $latefilter = function() {
+        };
         $termsforschool = new terms_for_school_collection($container);
 
         $collectionfactory = $this->mock_collection_factory($container, ['get_terms_for_school']);
@@ -253,7 +253,8 @@ class school_testcase extends entity_testcase {
 
         $params = ['sort' => 'sourcedId'];
         $filter = $this->mock_filter();
-        $latefilter = function() {};
+        $latefilter = function() {
+        };
         $collectionfactory = $this->mock_collection_factory($container, ['get_classes_for_school']);
         $collectionfactory
             ->expects($this->once())
@@ -308,7 +309,8 @@ class school_testcase extends entity_testcase {
 
         $params = ['sort' => 'sourcedId'];
         $filter = $this->mock_filter();
-        $latefilter = function() {};
+        $latefilter = function() {
+        };
         $usersforschool = new users_collection($container);
 
         $collectionfactory = $this->mock_collection_factory($container, ['get_users_for_school']);
@@ -365,7 +367,8 @@ class school_testcase extends entity_testcase {
 
         $params = ['sort' => 'sourcedId'];
         $filter = $this->mock_filter();
-        $latefilter = function() {};
+        $latefilter = function() {
+        };
         $enrollmentsforschool = new enrollments_for_school_collection($container);
 
         $collectionfactory = $this->mock_collection_factory($container, ['get_enrollments_for_school']);

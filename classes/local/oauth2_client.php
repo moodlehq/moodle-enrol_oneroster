@@ -26,6 +26,8 @@
 
 namespace enrol_oneroster\local;
 
+defined('MOODLE_INTERNAL') || die;
+
 require_once($CFG->dirroot . '/lib/oauthlib.php');
 
 use moodle_exception;

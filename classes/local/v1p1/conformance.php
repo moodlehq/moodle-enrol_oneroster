@@ -498,6 +498,7 @@ class conformance extends conformance_base {
 
         foreach ($collection as $result) {
             // The CTS endpoint does not support the 'fields' option.
+            continue;
         }
 
         // Note: The CTS endpoint does not return sorted data.
@@ -512,7 +513,7 @@ class conformance extends conformance_base {
         string $collectionname,
         array $args
     ): void {
-        // Endpoint: Collection
+        // Endpoint: Collection.
         self::print_test_header("Endpoint", $collectiontype);
 
         $collectionfn = "get_{$collectionname}";
@@ -547,7 +548,7 @@ class conformance extends conformance_base {
         ?string $entitytype,
         ?string $entityname
     ): void {
-        // Endpoint: Collection
+        // Endpoint: Collection.
         self::print_test_header("Endpoint", $collectiontype);
 
         $collectionfn = "get_{$collectionname}";

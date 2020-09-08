@@ -49,6 +49,7 @@ class full_sync extends \core\task\scheduled_task {
      * Run task for synchronising users.
      */
     public function execute() {
+        $trace = new text_progress_trace();
         if (!enrol_is_enabled('oneroster')) {
             $trace->output('One Roster not enabled');
             return;
@@ -65,7 +66,7 @@ class full_sync extends \core\task\scheduled_task {
             $config->secret
         );
 
-        $client->set_trace(new text_progress_trace());
+        $client->set_trace($trace);
         $client->authenticate();
         $client->synchronise();
     }

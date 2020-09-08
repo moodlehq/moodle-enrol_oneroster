@@ -25,11 +25,9 @@
 namespace enrol_oneroster\local;
 
 use coding_exception;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    entity_factory as entity_factory_interface,
-    filter as filter_interface,
-};
+use enrol_oneroster\local\interfaces\container as container_interface;
+use enrol_oneroster\local\interfaces\entity_factory as entity_factory_interface;
+use enrol_oneroster\local\interfaces\filter as filter_interface;
 use stdClass;
 
 /**

@@ -34,8 +34,11 @@ use enrol_oneroster\local\interfaces\rostering_endpoint as rostering_endpoint_in
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @SuppressWarnings(PHPMD.ConstantNamingConventions)
  */
 class rostering extends endpoint implements rostering_endpoint_interface {
+    // @codingStandardsIgnoreStart UpperCaseConstantNameSniff
+
     const getAllAcademicSessions = 'getAllAcademicSessions';
     const getAcademicSession = 'getAcademicSession';
     const getAllClasses = 'getAllClasses';
@@ -76,6 +79,8 @@ class rostering extends endpoint implements rostering_endpoint_interface {
     const getClassesForSchool = 'getClassesForSchool';
     const getStudentsForClass = 'getStudentsForClass';
     const getTeachersForClass = 'getTeachersForClass';
+
+    // @codingStandardsIgnoreEnd UpperCaseConstantNameSniff
 
     /** @var array List of commands and their configuration */
     protected static $commands = [

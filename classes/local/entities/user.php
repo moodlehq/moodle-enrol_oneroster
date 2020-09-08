@@ -25,12 +25,10 @@
 namespace enrol_oneroster\local\entities;
 
 use coding_exception;
-use enrol_oneroster\local\interfaces\{
-    container as container_interface,
-    user_representation,
-};
-use enrol_oneroster\local\entity;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
+use enrol_oneroster\local\entity;
+use enrol_oneroster\local\interfaces\ user_representation;
+use enrol_oneroster\local\interfaces\container as container_interface;
 use stdClass;
 
 /**
@@ -90,7 +88,7 @@ class user extends entity implements user_representation {
 
         // The guidref and should contain both the sourcedId and the type.
         // It also contains an href, but this is not reliable and cannot be used.
-        //return $this->container->get_collection_factory()->get_orgs($guidref->sourcedId);
+        return $this->container->get_collection_factory()->get_orgs($guidref->sourcedId);
     }
 
     /**
