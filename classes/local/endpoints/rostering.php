@@ -34,50 +34,128 @@ use enrol_oneroster\local\interfaces\rostering_endpoint as rostering_endpoint_in
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @SuppressWarnings(PHPMD.ConstantNamingConventions)
  */
 class rostering extends endpoint implements rostering_endpoint_interface {
     // @codingStandardsIgnoreStart UpperCaseConstantNameSniff
 
+    /** @var string Endpoint name to fetch all academic sessions */
     const getAllAcademicSessions = 'getAllAcademicSessions';
+
+    /** @var string Endpoint name to fetch an academic session */
     const getAcademicSession = 'getAcademicSession';
+
+    /** @var string Endpoint name to fetch all classes */
     const getAllClasses = 'getAllClasses';
+
+    /** @var string Endpoint name to fetch a class */
     const getClass = 'getClass';
+
+    /** @var string Endpoint name to fetch all courses */
     const getAllCourses = 'getAllCourses';
+
+    /** @var string Endpoint name to fetch a cousre */
     const getCourse = 'getCourse';
+
+    /** @var string Endpoint name to fetch all grading periods */
     const getAllGradingPeriods = 'getAllGradingPeriods';
+
+    /** @var string Endpoint name to fetch a grading period */
     const getGradingPeriod = 'getGradingPeriod';
+
+    /** @var string Endpoint name to fetch all demographic data */
     const getAllDemographics = 'getAllDemographics';
+
+    /** @var string Endpoint name to fetch a single demographic dataset */
     const getDemographics = 'getDemographics';
+
+    /** @var string Endpoint name to fetch all enrollments */
     const getAllEnrollments = 'getAllEnrollments';
+
+    /** @var string Endpoint name to fetch an enrollment */
     const getEnrollment = 'getEnrollment';
+
+    /** @var string Endpoint name to fetch all organisations*/
     const getAllOrgs = 'getAllOrgs';
+
+    /** @var string Endpoint name to fetch an organisation */
     const getOrg = 'getOrg';
+
+    /** @var string Endpoint name to fetch all schools */
     const getAllSchools = 'getAllSchools';
+
+    /** @var string Endpoint name to fetch a school*/
     const getSchool = 'getSchool';
+
+    /** @var string Endpoint name to fetch all students */
     const getAllStudents = 'getAllStudents';
+
+    /** @var string Endpoint name to fetch a student */
     const getStudent = 'getStudent';
+
+    /** @var string Endpoint name to fetch all teachers */
     const getAllTeachers = 'getAllTeachers';
+
+    /** @var string Endpoint name to fetch a teacher */
     const getTeacher = 'getTeacher';
+
+    /** @var string Endpoint name to fetch all terms */
     const getAllTerms = 'getAllTerms';
+
+    /** @var string Endpoint name to fetch a term */
     const getTerm = 'getTerm';
+
+    /** @var string Endpoint name to fetch all users */
     const getAllUsers = 'getAllUsers';
+
+    /** @var string Endpoint name to fetch an user */
     const getUser = 'getUser';
+
+    /** @var string Endpoint name to fetch all courses in a school */
     const getCoursesForSchool = 'getCoursesForSchool';
+
+    /** @var string Endpoint name to fetch all enrolments for a class in a school */
     const getEnrollmentsForClassInSchool = 'getEnrollmentsForClassInSchool';
+
+    /** @var string Endpoint name to fetch all students for a class in a school */
     const getStudentsForClassInSchool = 'getStudentsForClassInSchool';
+
+    /** @var string Endpoint name to fetch all teachers for a call in a school */
     const getTeachersForClassInSchool = 'getTeachersForClassInSchool';
+
+    /** @var string Endpoint name to fetch all enrolments in a school */
     const getEnrollmentsForSchool = 'getEnrollmentsForSchool';
+
+    /** @var string Endpoint name to fetch all students in a school */
     const getStudentsForSchool = 'getStudentsForSchool';
+
+    /** @var string Endpoint name to fetch all teachers in a school */
     const getTeachersForSchool = 'getTeachersForSchool';
+
+    /** @var string Endpoint name to fetch all term periods in a school*/
     const getTermsForSchool = 'getTermsForSchool';
+
+    /** @var string Endpoint name to fetch a list of classes held in a term*/
     const getClassesForTerm = 'getClassesForTerm';
+
+    /** @var string Endpoint name to fetch all grading periods in a term */
     const getGradingPeriodsForTerm = 'getGradingPeriodsForTerm';
+
+    /** @var string Endpoint name to fetch all classes for a course */
     const getClassesForCourse = 'getClassesForCourse';
+
+    /** @var string Endpoint name to fetch all classes for a student */
     const getClassesForStudent = 'getClassesForStudent';
+
+    /** @var string Endpoint name to fetch all classes for a teacher */
     const getClassesForTeacher = 'getClassesForTeacher';
+
+    /** @var string Endpoint name to fetch all classes for a school */
     const getClassesForSchool = 'getClassesForSchool';
+
+    /** @var string Endpoint name to fetch all students for a class */
     const getStudentsForClass = 'getStudentsForClass';
+
+    /** @var string Endpoint name to fetch all teachers for a class */
     const getTeachersForClass = 'getTeachersForClass';
 
     // @codingStandardsIgnoreEnd UpperCaseConstantNameSniff

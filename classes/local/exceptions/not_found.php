@@ -27,8 +27,7 @@ namespace enrol_oneroster\local\exceptions;
 use moodle_url;
 
 /**
- * Not Found - there is no resource behind the URI.
- * Error 404.
+ * Not Found - there is no resource behind the URI (Error 404).
  *
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>

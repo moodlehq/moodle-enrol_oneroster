@@ -50,7 +50,7 @@ abstract class container implements container_interface {
     /**
      * Constructor for the new container.
      *
-     * @param   client_interface
+     * @param   client_interface $client
      */
     public function __construct(client_interface $client) {
         $this->client = $client;

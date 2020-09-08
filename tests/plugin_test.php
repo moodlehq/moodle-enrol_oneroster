@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

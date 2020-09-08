@@ -185,7 +185,7 @@ class class_entity extends entity implements course_representation {
      *
      * @param   array $params
      * @param   filter|null $filter
-     * @param   callable|recordfilter
+     * @param   callable $recordfilter
      * @return  enrollments_collection
      */
     public function get_enrollments(

@@ -17,7 +17,7 @@
 /**
  * One Roster Enrolment Client Unit tests.
  *
- * @package    enrol_database
+ * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -150,6 +150,11 @@ class org_testcase extends entity_testcase {
         $this->assertEquals($expected, $entity->get_course_category_data());
     }
 
+    /**
+     * Data provider for test_get_course_category_data.
+     *
+     * @return  array
+     */
     public function course_category_data_provider(): array {
         return [
             [

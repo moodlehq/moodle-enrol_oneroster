@@ -88,7 +88,7 @@ trait oneroster_client {
      * Get the Base URL for this One Roster API version.
      *
      * @param string $server The hostname
-     * @returns moodle_url
+     * @return moodle_url
      */
     protected function get_base_url(string $server): moodle_url {
         // As per https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480451989
@@ -281,6 +281,7 @@ EOF;
      * Synchronise the entire School.
      *
      * @param   school_entity $school
+     * @param   null|DateTime $onlysince
      */
     public function sync_school(school_entity $school, ?DateTime $onlysince = null): void {
         // Updating the category for this school.
@@ -812,6 +813,7 @@ EOF;
      * Get the role mapping for the specified role.
      *
      * @param   string $rolename The One Roster role name
+     * @param   int $intendedcontextlevel The context level that this mapping relates to
      * @return  int|null The Moodle Role ID for the mapped role
      */
     protected function get_role_mapping(string $rolename, int $intendedcontextlevel): ?int {
@@ -881,7 +883,7 @@ EOF;
     /**
      * Create a user mapping entry.
      *
-     * @param   object $usre
+     * @param   object $user
      * @param   string $mappedid
      */
     protected function create_user_mapping(object $user, string $mappedid): void {

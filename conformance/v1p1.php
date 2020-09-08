@@ -14,9 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * One Roster Enrolment Client.
+ *
+ * @package    enrol_oneroster
+ * @copyright  Andrew Nicols <andrew@nicols.co.uk>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 // MUC must be disabled to ensure that all endpoints are called.
 define('CACHE_DISABLE_ALL', true);
+
+// The Conformance Test Suite runner must be run via CLI.
 define('CLI_SCRIPT', true);
+
 require_once(__DIR__ . '/../../../config.php');
 require_once("{$CFG->libdir}/clilib.php");
 

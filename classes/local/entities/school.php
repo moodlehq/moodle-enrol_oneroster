@@ -66,7 +66,7 @@ class school extends org {
      *
      * @param   array $params
      * @param   filter|null $filter
-     * @param   callable|recordfilter
+     * @param   callable $recordfilter
      * @return  courses_collection
      */
     public function get_courses(
@@ -82,7 +82,7 @@ class school extends org {
      *
      * @param   array $params
      * @param   filter|null $filter
-     * @param   callable|recordfilter
+     * @param   callable $recordfilter
      * @return  terms_collection
      */
     public function get_terms(
@@ -98,7 +98,7 @@ class school extends org {
      *
      * @param   array $params
      * @param   filter|null $filter
-     * @param   callable|recordfilter
+     * @param   callable $recordfilter
      * @return  classes_collection
      */
     public function get_classes(
@@ -117,7 +117,7 @@ class school extends org {
      *
      * @param   array $params
      * @param   filter|null $filter
-     * @param   callable|recordfilter
+     * @param   callable $recordfilter
      * @return  users_collection
      */
     public function get_users(
@@ -134,7 +134,7 @@ class school extends org {
      *
      * @param   array $params
      * @param   filter|null $filter
-     * @param   callable|recordfilter
+     * @param   callable $recordfilter
      * @return  enrollments_collection
      */
     public function get_enrollments(

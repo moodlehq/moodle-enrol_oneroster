@@ -84,6 +84,9 @@ class collection_factory extends abstract_factory implements collection_factory_
     /**
      * Fetch a collection of organisations.
      *
+     * @param   array $params The parameters to use when fetching the collection
+     * @param   filter $filter The filter to use when fetching the collection
+     * @param   callable $recordfilter Any subsequent filter to apply to the results
      * @return  orgs_collection
      */
     public function get_orgs(array $params = [], ?filter $filter = null, ?callable $recordfilter = null): orgs_collection {
@@ -93,6 +96,9 @@ class collection_factory extends abstract_factory implements collection_factory_
     /**
      * Fetch a collection of schools.
      *
+     * @param   array $params The parameters to use when fetching the collection
+     * @param   filter $filter The filter to use when fetching the collection
+     * @param   callable $recordfilter Any subsequent filter to apply to the results
      * @return  schools_collection
      */
     public function get_schools(array $params = [], ?filter $filter = null, ?callable $recordfilter = null): schools_collection {
@@ -158,11 +164,11 @@ class collection_factory extends abstract_factory implements collection_factory_
      *
      * The class and school ids are automatically filled. Additional parameters can be supplied.
      *
-     * @param   class $class The class to fetch students for
-     * @param   school $school The school to fetch students for
+     * @param   class_entity $class The class to fetch students for
+     * @param   school_entity $school The school to fetch students for
      * @param   array $params The parameters to use when fetching the collection
-     * @param   filter $filter The filter to use when fetching the collection
-     * @param   callable $recordfilter Any subsequent filter to apply to the results
+     * @param   null|filter $filter The filter to use when fetching the collection
+     * @param   null|callable $recordfilter Any subsequent filter to apply to the results
      * @return  students_for_class_in_school_collection
      */
     public function get_students_for_class_in_school(
@@ -242,10 +248,10 @@ class collection_factory extends abstract_factory implements collection_factory_
      *
      * The class and school ids are automatically filled. Additional parameters can be supplied.
      *
-     * @param   class $class The class to fetch teachers for
-     * @param   school $school The school to fetch teachers for
+     * @param   class_entity $class The class to fetch teachers for
+     * @param   school_entity $school The school to fetch teachers for
      * @param   array $params The parameters to use when fetching the collection
-     * @param   filter $filter The filter to use when fetching the collection
+     * @param   null|filter $filter The filter to use when fetching the collection
      * @param   callable $recordfilter Any subsequent filter to apply to the results
      * @return  teachers_for_class_in_school_collection
      */
@@ -488,7 +494,7 @@ class collection_factory extends abstract_factory implements collection_factory_
      *
      * The student id is automatically filled. Additional parameters can be supplied.
      *
-     * @param   student_entity $student The student to fetch classes for
+     * @param   user_entity $student The student to fetch classes for
      * @param   array $params The parameters to use when fetching the collection
      * @param   filter $filter The filter to use when fetching the collection
      * @param   callable $recordfilter Any subsequent filter to apply to the results
@@ -515,9 +521,9 @@ class collection_factory extends abstract_factory implements collection_factory_
      *
      * The teacher id is automatically filled. Additional parameters can be supplied.
      *
-     * @param   teacher_entity $teacher The teacher to fetch classes for
+     * @param   user_entity $teacher The teacher to fetch classes for
      * @param   array $params The parameters to use when fetching the collection
-     * @param   filter $filter The filter to use when fetching the collection
+     * @param   null|filter $filter The filter to use when fetching the collection
      * @param   callable $recordfilter Any subsequent filter to apply to the results
      * @return  classes_for_teacher_collection
      */
@@ -729,11 +735,11 @@ class collection_factory extends abstract_factory implements collection_factory_
      *
      * The class and school ids are automatically filled. Additional parameters can be supplied.
      *
-     * @param   class $class The class to fetch enrollments for
-     * @param   school $school The school to fetch enrollments for
+     * @param   class_entity $class The class to fetch enrollments for
+     * @param   school_entity $school The school to fetch enrollments for
      * @param   array $params The parameters to use when fetching the collection
-     * @param   filter $filter The filter to use when fetching the collection
-     * @param   callable $recordfilter Any subsequent filter to apply to the results
+     * @param   null|filter $filter The filter to use when fetching the collection
+     * @param   null|callable $recordfilter Any subsequent filter to apply to the results
      * @return  enrollments_for_class_in_school_collection
      */
     public function get_enrollments_for_class_in_school(

@@ -27,8 +27,7 @@ namespace enrol_oneroster\local\exceptions;
 use moodle_url;
 
 /**
- * Entity cannot be processed - used where the server cannot validate an incoming entity.
- * Error 429.
+ * Entity cannot be processed - used where the server cannot validate an incoming entity (Error 429).
  *
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>

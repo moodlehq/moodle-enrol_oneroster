@@ -90,6 +90,11 @@ abstract class oauth1_client extends abstract_oauth_client {
     public function authenticate(): void {
     }
 
+    /**
+     * Get the request information.
+     *
+     * @return  array
+     */
     public function get_request_info(): array {
         return $this->http->info;
     }
@@ -106,8 +111,8 @@ abstract class oauth1_client extends abstract_oauth_client {
      * To access protected resources, oauth_token should be defined
      *
      * @param string $url
-     * @param string $token
-     * @param string $http_method
+     * @param string $params
+     * @param string $method
      * @return array
      */
     public function prepare_oauth_parameters($url, $params, $method = 'POST') {
@@ -129,11 +134,13 @@ abstract class oauth1_client extends abstract_oauth_client {
     }
 
     /**
-     * Create signature for oauth request
-     * @param string $url
-     * @param string $secret
-     * @param array $params
-     * @return string
+     * Create signature for oauth request.
+     *
+     * @param   string $method
+     * @param   string $url
+     * @param   array $params
+     * @param   string $secret
+     * @return  string
      */
     public function sign($method, $url, $params, $secret) {
         $moodleurl = new moodle_url($url, $params);

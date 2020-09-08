@@ -37,27 +37,28 @@ use moodle_url;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class client_helper {
-    /** @const One Roster Version 1.1 */
+    /** @var One Roster Version 1.1 */
     const VERSION_V1P1 = 'v1p1';
 
-    /** @const One Roster Version 1.2 */
+    /** @var One Roster Version 1.2 */
     const VERSION_V1P2 = 'v1p2';
 
-    /** @const Version 1.0 of the OAuth specification */
+    /** @var Version 1.0 of the OAuth specification */
     const OAUTH_10 = 'oauth1';
 
-    /** @const Version 2.0 of the OAuth specification */
+    /** @var Version 2.0 of the OAuth specification */
     const OAUTH_20 = 'oauth2';
 
-    /** @const A POST request */
+    /** @var A POST request */
     const POST = 'POST';
 
-    /** @const A GET request */
+    /** @var A GET request */
     const GET = 'GET';
 
     /**
      * Get an instance of the One Roster API.
      *
+     * @param string $oauthversion The version of the OAuth specification to use
      * @param string $version The One Roster version to use
      * @param string $tokenurl The OAuth2 server
      * @param string $server The server hosting the One Roster endpoint

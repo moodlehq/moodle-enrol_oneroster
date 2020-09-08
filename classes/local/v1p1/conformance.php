@@ -69,6 +69,9 @@ class conformance extends conformance_base {
     }
 
 
+    /**
+     * Run tests pertaining to OAuth, the connection, and URL parameters.
+     */
     protected function run_url_tests(): void {
         self::print_test_title("OAuth Features");
 
@@ -507,6 +510,10 @@ class conformance extends conformance_base {
 
     /**
      * Test Collection helper.
+     *
+     * @param   string $collectiontype The descriptive name of the collection
+     * @param   string $collectionname The class name of the collection to fetch
+     * @param   array $args
      */
     protected function test_collection_with_args(
         string $collectiontype,

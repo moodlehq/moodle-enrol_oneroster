@@ -39,13 +39,13 @@ use stdClass;
  */
 abstract class entity {
 
-    /* @var container_interface The container for the One Roster version */
+    /** @var container_interface The container for the One Roster version */
     protected $container;
 
-    /* @var string The sourcedId of the entity */
+    /** @var string The sourcedId of the entity */
     protected $id;
 
-    /* @var stdClass The retrieved data */
+    /** @var stdClass The retrieved data */
     protected $data;
 
     /**
@@ -145,6 +145,7 @@ abstract class entity {
     /**
      * Parse the data returned from the One Roster Endpoint.
      *
+     * @param   container_interface $container
      * @param   stdClass $data The raw data returned from the endpoint
      * @return  stdClass The parsed data
      */

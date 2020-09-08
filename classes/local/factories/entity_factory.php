@@ -69,7 +69,7 @@ class entity_factory extends abstract_factory implements entity_factory_interfac
      *
      * @param   string $entitytype The type of entity
      * @param   string $id The sourcedId of the entity
-     * @param   filter|null Any filter
+     * @param   filter|null $filter Any filter to apply
      * @return  stdClass|null The data stored in the cache
      */
     protected function fetch_from_cache(string $entitytype, string $id, ?filter $filter = null): ?stdClass {
@@ -95,7 +95,7 @@ class entity_factory extends abstract_factory implements entity_factory_interfac
      *
      * @param   string $entitytype The type of entity
      * @param   string $id The sourcedId of the entity
-     * @param   stdClass The data to store
+     * @param   stdClass $data The data to store
      */
     protected function store_record_in_cache(string $entitytype, string $id, stdClass $data): void {
         $cache = $this->get_cache_for_type($entitytype);

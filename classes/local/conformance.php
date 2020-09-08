@@ -81,8 +81,7 @@ abstract class conformance {
     /**
      * Print a test header.
      *
-     * @param   string $type The type of test being run.
-     * @param   string $name The name of the test being run.
+     * @param   string $title The type of test being run.
      */
     public static function print_test_title(string $title): void {
         $formattedtitle = sprintf(

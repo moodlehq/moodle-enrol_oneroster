@@ -27,8 +27,7 @@ namespace enrol_oneroster\local\exceptions;
 use moodle_url;
 
 /**
- * Unauthorized - the Request requires authorization.
- * Error 401.
+ * Unauthorized - the Request requires authorization (Error 401).
  *
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>

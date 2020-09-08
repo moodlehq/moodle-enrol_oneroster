@@ -175,7 +175,7 @@ abstract class oauth2_client extends abstract_oauth_client {
      *
      * @param   string $token
      * @param   int $expiry
-     * @param   string scope
+     * @param   string $scope
      */
     public function set_access_token(string $token, int $expiry, string $scope): void {
         $this->accesstoken = (object) [
@@ -213,7 +213,7 @@ abstract class oauth2_client extends abstract_oauth_client {
      * Get the Base URL for this One Roster API version.
      *
      * @param string $server The hostname
-     * @returns moodle_url
+     * @return moodle_url
      */
     abstract protected function get_base_url(string $server): moodle_url;
 }

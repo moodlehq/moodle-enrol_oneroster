@@ -38,10 +38,10 @@ use InvalidArgumentException;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter extends filter_base {
-    /* @var string[] The current search filters */
+    /** @var string[] The current search filters */
     protected $filters = [];
 
-    /* @var string The current logical operator */
+    /** @var string The current logical operator */
     protected $logicaloperator = 'AND';
 
     /**

@@ -44,7 +44,7 @@ interface endpoint {
     /**
      * Create the endpoint.
      *
-     * @param   container_interface $container;
+     * @param   container_interface $container
      */
     public function __construct(container_interface $container);
 
@@ -52,29 +52,27 @@ interface endpoint {
      * Execeute the supplied method.
      *
      * @param   string $method
-     * @param   filter_interface $filter,
+     * @param   null|filter_interface $filter
      * @param   array $params
-     * @return  mixed
      */
     public function execute(string $method, ?filter_interface $filter = null, array $params = []);
 
     /**
      * Execeute the supplied command.
      *
-     * @param   command $comand
-     * @param   filter_interface $filter,
-     * @return  mixed
+     * @param   command $command
+     * @param   null|filter_interface $filter
      */
     public function execute_command(command $command, ?filter_interface $filter = null);
 
     /**
      * Exeucte a function which returns a collection.
      *
-     * @param   string $method
-     * @param   array $params
+     * @param   string $method HTTP Method
      * @param   filter_interface $filter
-     * @param   string $collection
+     * @param   array $params
      * @param   callable $callback
+     * @return  Iterable
      */
     public function execute_paginated_function(
         string $method,

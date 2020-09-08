@@ -27,8 +27,7 @@ namespace enrol_oneroster\local\exceptions;
 use moodle_url;
 
 /**
- * Bad Request - the Request was invalid and cannot be served.
- * Error 400.
+ * Bad Request - the Request was invalid and cannot be served (Error 400).
  *
  * @package    enrol_oneroster
  * @copyright  Andrew Nicols <andrew@nicols.co.uk>

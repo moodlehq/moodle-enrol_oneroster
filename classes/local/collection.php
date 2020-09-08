@@ -60,6 +60,8 @@ abstract class collection implements IteratorAggregate {
      *
      * @param   container_interface $container The container to which this entity belongs
      * @param   array $params All of the parameters, including those required as filter args
+     * @param   null|filter $filter A filter to apply to the Endpoint call
+     * @param   callable $recordfilter A filter to apply after retrievin reuslts
      */
     public function __construct(
         container_interface $container,
@@ -90,8 +92,8 @@ abstract class collection implements IteratorAggregate {
     /**
      * Process the current filter, creating an empty filter if none was specified.
      *
-     * @param   filter|null $filter
-     * @return  filter
+     * @param   filter_interface|null $filter
+     * @return  filter_interface
      */
     protected function process_filter(?filter_interface $filter): filter_interface {
         if ($filter) {
