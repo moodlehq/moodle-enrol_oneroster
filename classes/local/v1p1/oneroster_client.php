@@ -28,6 +28,7 @@ use DateTime;
 use context_user;
 use core_course_category;
 use core_php_time_limit;
+use core_user;
 use enrol_oneroster\client as client_base;
 use enrol_oneroster\local\converter;
 
@@ -47,6 +48,7 @@ use enrol_oneroster\local\collections\terms as terms_collection;
 use enrol_oneroster\local\v1p1\endpoints\rostering as rostering_endpoint;
 use enrol_oneroster\local\entities\org as org_entity;
 use enrol_oneroster\local\entities\school as school_entity;
+use enrol_oneroster\local\entities\user as user_entity;
 use moodle_url;
 use progress_trace;
 use stdClass;
@@ -181,6 +183,7 @@ trait oneroster_client {
             }
         }
 
+        $this->get_trace()->output("Processing unenrolments", 3);
         foreach ($this->existingroleassignments as $instanceid => $ra) {
             $instance = $DB->get_record('enrol', ['id' => $instanceid]);
             if ($instance === null) {
@@ -202,6 +205,21 @@ trait oneroster_client {
             $this->get_plugin_instance()->unenrol_user(
                 $instance,
                 $userid
+            );
+        }
+
+        $this->get_trace()->output("Completed synchronisation of Rostering information");
+        $this->get_trace()->output(sprintf("Entity\t\tCreate\tUpdate\tDelete"), 1);
+        foreach ($this->get_metrics() as $thing => $actions) {
+            $this->get_trace()->output(
+                sprintf(
+                    "Entity '%s'\t%d\t%d\t%d",
+                    $thing,
+                    $actions['create'],
+                    $actions['update'],
+                    $actions['delete']
+                ),
+                1
             );
         }
     }
@@ -504,168 +522,208 @@ EOF;
     protected function update_or_create_user(user_representation $entity): stdClass {
         global $CFG, $DB;
 
-        $auth = 'manual';
-
         // Note: This is _usually_ the responsibility of an authentication plugin but One Roster can work with different
         // authentication sources which do not know anything about One Roster.
         require_once("{$CFG->dirroot}/user/lib.php");
 
-        // Fetch the course representation for this entity.
+        // Fetch the user representation for this entity.
         // TODO Pass relevant args in here to fetch the correct auth source, and username field.
         $remoteuser = $entity->get_user_data();
 
         // TODO support setting of the auth mechanism, and use of the alternate userId fields.
-        $remoteuser->auth = $auth;
+        $remoteuser->auth = 'manual';
 
-        $userid = $this->get_user_mapping($remoteuser->idnumber);
-        if ($userid) {
-            $localuser = $DB->get_record('user', ['idnumber' => $remoteuser->idnumber]);
-            // The user exists, user_update_user works on user 'id', so fill that in.
-            $remoteuser->id = $localuser->id;
-
-            if ($localuser->timemodified > converter::from_datetime_to_unix($entity->get('dateLastModified'))) {
-                $this->get_trace()->output(sprintf("Skipping update of existing user %s with id %s (%s)",
-                    $remoteuser->username,
-                    $remoteuser->id,
-                    $remoteuser->idnumber
-                ), 4);
-
-                return $localuser;
-            }
-
-            // Update the existing user.
-            $this->get_trace()->output(sprintf("Updating existing user %s with id %s (%s) %d < %d",
-                $remoteuser->username,
-                $remoteuser->id,
-                $remoteuser->idnumber,
-                $localuser->timemodified,
-                converter::from_datetime_to_unix($entity->get('dateLastModified'))
-            ), 4);
-
-            user_update_user($remoteuser);
-            $this->add_metric('user', 'update');
-
-            $localuser = \core_user::get_user($localuser->id);
+        if ($this->get_user_mapping($remoteuser->idnumber)) {
+            $localuser = $this->update_existing_user($entity, $remoteuser);
         } else {
-            // Check whether there is an existing user with the same username.
-            $user = $DB->get_record('user', ['username' => $remoteuser->username]);
-            if ($user) {
-                $localuser = \core_user::get_user($user->id);
-                $this->create_user_mapping($localuser, $remoteuser->idnumber);
-
-                $this->get_trace()->output(sprintf("Skipping update/create of user %s merged into local user %s",
-                    $remoteuser->idnumber,
-                    $localuser->idnumber
-                ), 4);
-            } else {
-                // No user with the same idnumber, or a mapped idnumber.
-                // Create a new user.
-                $this->get_trace()->output(sprintf("Creating new user %s (%s)",
-                    $remoteuser->username,
-                    $remoteuser->idnumber
-                ), 4);
-
-                $localuserid = user_create_user($remoteuser);
-                $this->add_metric('user', 'create');
-
-                $localuser = \core_user::get_user($localuserid);
-                $this->create_user_mapping($localuser, $remoteuser->idnumber);
-            }
+            // Create a new uesr.
+            $localuser = $this->create_new_user($entity, $remoteuser);
         }
 
         // See whether this user is an agent for any other user.
         // Note: This is only applied for students as per section 4.1.2 of the specification.
-        if ($entity->get('role') === 'student') {
-            $localusercontext = context_user::instance($localuser->id);
+        $this->sync_user_agents($entity, $localuser);
 
-            // Create a mapping of userid => [roleid] for current user agents.
-            $localuseragents = [];
-            foreach (get_users_roles($localusercontext, [], false) as $userid => $roleassignments) {
-                foreach (array_values($roleassignments) as $ra) {
-                    if ($ra->component === 'enrol_oneroster') {
-                        if (!array_key_exists($userid, $localuseragents)) {
-                            $localuseragents[$userid] = [];
-                        }
-                        $localuseragents[$userid][$ra->roleid] = true;
+        return $localuser;
+    }
+
+    /**
+     * Create a new local user based upon a user representation.
+     *
+     * @param   user_representation $entity
+     * @param   stdClass $remoteuser The user representation for the entity
+     * @return  stdClass
+     */
+    protected function create_new_user(user_representation $entity, stdClass $remoteuser): stdClass {
+        // Check whether there is an existing user with the same username.
+        $user = core_user::get_user_by_username($remoteuser->username);
+        if ($user) {
+            $localuser = \core_user::get_user($user->id);
+            $this->create_user_mapping($localuser, $remoteuser->idnumber);
+
+            $this->get_trace()->output(sprintf("Skipping update/create of user %s merged into local user %s",
+                $remoteuser->idnumber,
+                $localuser->idnumber
+            ), 4);
+
+            return $localuser;
+        }
+
+        // No user with the same idnumber, or a mapped idnumber.
+        // Create a new user.
+        $this->get_trace()->output(sprintf("Creating new user %s (%s)",
+            $remoteuser->username,
+            $remoteuser->idnumber
+        ), 4);
+
+        $localuserid = user_create_user($remoteuser);
+        $this->add_metric('user', 'create');
+
+        $localuser = \core_user::get_user($localuserid);
+        $this->create_user_mapping($localuser, $remoteuser->idnumber);
+
+        return $localuser;
+    }
+
+    /**
+     * Update an existing user.
+     *
+     * @param   user_representation $entity
+     * @param   stdClass $remoteuser The user representation for the entity
+     * @return  stdClass
+     */
+    protected function update_existing_user(user_representation $entity, stdClass $remoteuser): stdClass {
+        global $DB;
+
+        $localuser = $DB->get_record('user', ['idnumber' => $remoteuser->idnumber]);
+
+        // The user exists, user_update_user works on user 'id', so fill that in.
+        $remoteuser->id = $localuser->id;
+
+        if ($localuser->timemodified > converter::from_datetime_to_unix($entity->get('dateLastModified'))) {
+            $this->get_trace()->output(sprintf("Skipping update of existing user %s with id %s (%s)",
+                $remoteuser->username,
+                $remoteuser->id,
+                $remoteuser->idnumber
+            ), 4);
+
+            return $localuser;
+        }
+
+        // Update the existing user.
+        $this->get_trace()->output(sprintf("Updating existing user %s with id %s (%s) %d < %d",
+            $remoteuser->username,
+            $remoteuser->id,
+            $remoteuser->idnumber,
+            $localuser->timemodified,
+            converter::from_datetime_to_unix($entity->get('dateLastModified'))
+        ), 4);
+
+        user_update_user($remoteuser);
+        $this->add_metric('user', 'update');
+
+        return \core_user::get_user($localuser->id);
+    }
+
+    /**
+     * Synchronise user agents for a user.
+     *
+     * @param   user_entity $entity The user to sync agents for
+     * @param   stdClas $localuser The local record for the user
+     */
+    protected function sync_user_agents(user_entity $entity, stdClass $localuser): void {
+        if ($entity->get('role') !== 'student') {
+            // Only applied for students as per section 4.1.2 of the specification.
+            return;
+        }
+
+        $localusercontext = context_user::instance($localuser->id);
+
+        // Create a mapping of userid => [roleid] for current user agents.
+        $localuseragents = [];
+        foreach (get_users_roles($localusercontext, [], false) as $userid => $roleassignments) {
+            foreach (array_values($roleassignments) as $ra) {
+                if ($ra->component === 'enrol_oneroster') {
+                    if (!array_key_exists($userid, $localuseragents)) {
+                        $localuseragents[$userid] = [];
                     }
-                }
-            }
-
-            // Update remote user agents.
-            foreach ($entity->get_agent_entities() as $remoteagent) {
-                if (!$remoteagent) {
-                    continue;
-                }
-
-                // Ensure that the local user exists.
-                $localagent = $this->update_or_create_user($remoteagent);
-                if (!$localagent) {
-                    // Unable to create the local agent.
-                    $this->get_trace()->output(sprintf(
-                        "Unable to assign %s (%s) as a %s of %s (%s). Local user not found.",
-                        $remoteagent->get('username'),
-                        $remoteagent->get('idnumber'),
-                        $remoteagent->get('role'),
-                        $remoteuser->get('username'),
-                        $remoteuser->get('idnumber')
-                    ), 4);
-                    continue;
-                }
-
-                // Fetch the local role for the remote agent.
-                $roleid = $this->get_role_mapping($remoteagent->get('role'), CONTEXT_USER);
-                if (!$roleid) {
-                    // No local mapping for this role.
-                    $this->get_trace()->output(sprintf(
-                        "Unable to assign %s (%s) as a %s of %s (%s). Role mapping not found.",
-                        $remoteagent->get('username'),
-                        $remoteagent->get('idnumber'),
-                        $remoteagent->get('role'),
-                        $remoteuser->get('username'),
-                        $remoteuser->get('idnumber')
-                    ), 4);
-                    continue;
-                }
-
-                $assignrole = !array_key_exists($localagent->id, $localuseragents);
-                $assignrole = $assignrole || !array_key_exists($roleid, $localuseragents[$localagent->id]);
-
-                if ($assignrole) {
-                    // Assign the role.
-                    role_assign($roleid, $localagent->id, $localusercontext, 'enrol_oneroster');
-                    $this->get_trace()->output(sprintf(
-                        "Assigned %s (%s) as a %s of %s (%s).",
-                        $remoteagent->get('username'),
-                        $remoteagent->get('idnumber'),
-                        $remoteagent->get('role'),
-                        $remoteuser->get('username'),
-                        $remoteuser->get('idnumber')
-                    ), 4);
-                    $this->add_metric('user_mapping', 'create');
-                } else {
-                    // Unset the local agent mapping.
-                    unset($localuseragents[$localagent->id][$roleid]);
-                }
-
-            }
-
-            // Unenrol stale mappings.
-            foreach ($localuseragents as $localagentid => $localagentroles) {
-                foreach ($localagentroles as $roleid) {
-                    $this->get_trace()->output(sprintf(
-                        "Unasssigned user with id %s from being a %s of %s (%s).",
-                        $localagentid,
-                        $roleid,
-                        $localuser->username,
-                        $localuser->idnumber
-                    ), 4);
-                    role_unassign($roleid, $localagentid, $localusercontext, 'enrol_oneroster');
-                    $this->add_metric('user_mapping', 'delete');
+                    $localuseragents[$userid][$ra->roleid] = true;
                 }
             }
         }
 
-        return $localuser;
+        // Update remote user agents.
+        foreach ($entity->get_agent_entities() as $remoteagent) {
+            if (!$remoteagent) {
+                continue;
+            }
+
+            // Ensure that the local user exists.
+            $localagent = $this->update_or_create_user($remoteagent);
+            if (!$localagent) {
+                // Unable to create the local agent.
+                $this->get_trace()->output(sprintf(
+                    "Unable to assign %s (%s) as a %s of %s (%s). Local user not found.",
+                    $remoteagent->get('username'),
+                    $remoteagent->get('idnumber'),
+                    $remoteagent->get('role'),
+                    $remoteuser->get('username'),
+                    $remoteuser->get('idnumber')
+                ), 4);
+                continue;
+            }
+
+            // Fetch the local role for the remote agent.
+            $roleid = $this->get_role_mapping($remoteagent->get('role'), CONTEXT_USER);
+            if (!$roleid) {
+                // No local mapping for this role.
+                $this->get_trace()->output(sprintf(
+                    "Unable to assign %s (%s) as a %s of %s (%s). Role mapping not found.",
+                    $remoteagent->get('username'),
+                    $remoteagent->get('idnumber'),
+                    $remoteagent->get('role'),
+                    $remoteuser->get('username'),
+                    $remoteuser->get('idnumber')
+                ), 4);
+                continue;
+            }
+
+            $assignrole = !array_key_exists($localagent->id, $localuseragents);
+            $assignrole = $assignrole || !array_key_exists($roleid, $localuseragents[$localagent->id]);
+
+            if ($assignrole) {
+                // Assign the role.
+                role_assign($roleid, $localagent->id, $localusercontext, 'enrol_oneroster');
+                $this->get_trace()->output(sprintf(
+                    "Assigned %s (%s) as a %s of %s (%s).",
+                    $remoteagent->get('username'),
+                    $remoteagent->get('idnumber'),
+                    $remoteagent->get('role'),
+                    $remoteuser->get('username'),
+                    $remoteuser->get('idnumber')
+                ), 4);
+                $this->add_metric('user_mapping', 'create');
+            } else {
+                // Unset the local agent mapping.
+                unset($localuseragents[$localagent->id][$roleid]);
+            }
+
+        }
+
+        // Unenrol stale mappings.
+        foreach ($localuseragents as $localagentid => $localagentroles) {
+            foreach ($localagentroles as $roleid) {
+                $this->get_trace()->output(sprintf(
+                    "Unasssigned user with id %s from being a %s of %s (%s).",
+                    $localagentid,
+                    $roleid,
+                    $localuser->username,
+                    $localuser->idnumber
+                ), 4);
+                role_unassign($roleid, $localagentid, $localusercontext, 'enrol_oneroster');
+                $this->add_metric('user_mapping', 'delete');
+            }
+        }
     }
 
     /**
@@ -918,11 +976,15 @@ EOF;
      */
     protected function add_metric(string $what, string $action, int $count = 1): void {
         if (!array_key_exists($what, $this->metrics)) {
-            $this->metrics[$what] = [];
+            $this->metrics[$what] = [
+                'create' => 0,
+                'update' => 0,
+                'delete' => 0,
+            ];
         }
 
         if (!array_key_exists($action, $this->metrics[$what])) {
-            $this->metrics[$what][$action] = 0;
+            return;
         }
 
         $this->metrics[$what][$action] += $count;
