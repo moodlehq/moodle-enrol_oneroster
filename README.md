@@ -30,7 +30,9 @@ There are currently no plans to add support for the CSV Implementation of the On
 
 ## Important information
 
-**Please note that this plugin is currently in ALPHA development and not suitable for production environments.**
+**Please note that this plugin is currently in ALPHA development and you should confirm its suitablity for your purpose prior to use in any production environment.**
+
+We ask that you report any bugs, issues, and positive experiences via the [Issue tracker](https://github.com/moodlehq/moodle-enrol_oneroster/issues).
 
 ## Installation
 
