@@ -193,6 +193,11 @@ if ($ADMIN->fulltree) {
     if ($availableschoolsjson = get_config('enrol_oneroster', 'availableschools')) {
         $availableschools = (array) json_decode($availableschoolsjson);
     }
+
+    if (empty($availableschoolsjson)) {
+        $availableschools[''] = get_string('none', 'admin');
+    }
+
     $settings->add(new admin_setting_configmultiselect(
         'enrol_oneroster/datasync_schools',
         get_string('settings_datasync_schools', 'enrol_oneroster'),
