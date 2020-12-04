@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Test that ghostscript is configured correctly
+ * Test that the OneRoster endpoint is configured correctly
  *
- * @package   assignfeedback_editpdf
- * @copyright 2020 Davo Smith
+ * @package   enrol_oneroster
+ * @copyright 2020 Andrew Nicols <andrew@nicols.co.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
