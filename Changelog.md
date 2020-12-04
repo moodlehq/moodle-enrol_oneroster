@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Changed
 - Corrected php docblock for testconnection.php script
+- Corrected typo on docblock
 
 ## [2020120301] - 2020-12-03
 ### Added

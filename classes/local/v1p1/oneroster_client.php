@@ -629,7 +629,7 @@ EOF;
      * Synchronise user agents for a user.
      *
      * @param   user_entity $entity The user to sync agents for
-     * @param   stdClas $localuser The local record for the user
+     * @param   stdClass $localuser The local record for the user
      */
     protected function sync_user_agents(user_entity $entity, stdClass $localuser): void {
         if ($entity->get('role') !== 'student') {
