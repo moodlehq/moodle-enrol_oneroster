@@ -54,7 +54,7 @@ foreach ($requiredfields as $field) {
 }
 
 $client = enrol_oneroster\client_helper::get_client(
-    enrol_oneroster\client_helper::oauth_20,
+    $onerosterconfig->oauth_version,
     $onerosterconfig->oneroster_version,
     $onerosterconfig->token_url,
     $onerosterconfig->root_url,

@@ -206,12 +206,17 @@ if ($ADMIN->fulltree) {
         $availableschools
     ));
 
+}
+
+if ($hassiteconfig) {
     $ADMIN->add(
         'enrolments',
         new admin_externalpage(
             'enrol_oneroster/testconnection',
             get_string('test_oneroster_connection', 'enrol_oneroster'),
-            new moodle_url('/enrol/oneroster/testconnection.php')
+            new moodle_url('/enrol/oneroster/testconnection.php'),
+            'moodle/site:config',
+            true
         )
     );
 }
