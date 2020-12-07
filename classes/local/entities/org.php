@@ -114,7 +114,7 @@ class org extends entity implements coursecat_representation {
             return null;
         }
 
-        if (property_exists($parentref, 'sourcedId')) {
+        if (!property_exists($parentref, 'sourcedId')) {
             // Parent Ref not correctly filled.
             return null;
         }

@@ -214,6 +214,21 @@ class org_testcase extends entity_testcase {
     }
 
     /**
+     * Ensure that the get_parent function handles where the defined parent is incorrectly specified.
+     */
+    public function test_get_parent_invalid(): void {
+        $container = $this->get_mocked_container();
+
+        $entity = new org($container, '12345', (object) [
+            'sourcedId' => 'example',
+            'parent' => (object) [],
+        ]);
+
+        // Non-existent objects return null.
+        $this->assertNull($entity->get_parent());
+    }
+
+    /**
      * Ensure that the get_parent function fetches the parent where one is defined.
      *
      * @dataProvider parent_provider
