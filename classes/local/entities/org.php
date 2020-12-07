@@ -114,6 +114,11 @@ class org extends entity implements coursecat_representation {
             return null;
         }
 
+        if (property_exists($parentref, 'sourcedId')) {
+            // Parent Ref not correctly filled.
+            return null;
+        }
+
         // The parentref is a guidref and should contain both the sourcedId and the type.
         // It also contains an href, but this is not reliable and cannot be used.
         return $this->container->get_entity_factory()->fetch_org_by_id($parentref->sourcedId);
