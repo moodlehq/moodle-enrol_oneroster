@@ -5,9 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [2020120700] - 2020-12-07
 ### Fixed
 - Test Connection script should respect configured OAuth setting
 - Corrected admin setting path for test connection script
+- Fixed missing database table
 
 ### Changed
 - Corrected php docblock for testconnection.php script
