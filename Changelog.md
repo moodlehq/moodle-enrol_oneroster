@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Mark new users as confirmed
+- Correct variable name when assign agents to a user
 
 ## [2020120701] - 2020-12-07
 ### Fixed

@@ -669,8 +669,8 @@ EOF;
                     $remoteagent->get('username'),
                     $remoteagent->get('idnumber'),
                     $remoteagent->get('role'),
-                    $remoteuser->get('username'),
-                    $remoteuser->get('idnumber')
+                    $entity->get('username'),
+                    $entity->get('idnumber')
                 ), 4);
                 continue;
             }
@@ -684,8 +684,8 @@ EOF;
                     $remoteagent->get('username'),
                     $remoteagent->get('idnumber'),
                     $remoteagent->get('role'),
-                    $remoteuser->get('username'),
-                    $remoteuser->get('idnumber')
+                    $entity->get('username'),
+                    $entity->get('idnumber')
                 ), 4);
                 continue;
             }
@@ -701,8 +701,8 @@ EOF;
                     $remoteagent->get('username'),
                     $remoteagent->get('idnumber'),
                     $remoteagent->get('role'),
-                    $remoteuser->get('username'),
-                    $remoteuser->get('idnumber')
+                    $entity->get('username'),
+                    $entity->get('idnumber')
                 ), 4);
                 $this->add_metric('user_mapping', 'create');
             } else {
