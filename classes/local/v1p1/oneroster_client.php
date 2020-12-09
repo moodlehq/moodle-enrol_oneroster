@@ -196,7 +196,9 @@ trait oneroster_client {
             // Unassign roles for this user.
             foreach ($ra as $userid => $roleids) {
                 foreach (array_keys($roleids) as $roleid) {
-                    role_unassign($roleid, $userid, $context->id, 'enrol_oneroster', $instance->id);
+                    if ($roleid) {
+                        role_unassign($roleid, $userid, $context->id, 'enrol_oneroster', $instance->id);
+                    }
                 }
             }
 
