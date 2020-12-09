@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Correct variable name when assign agents to a user
 - Fix an issue where the roleid list may be empty when removing users
 
+### Added
+- Added a new setting to select the authentication method (Fixes #7)
+
 ## [2020120701] - 2020-12-07
 ### Fixed
 - Fetching parent organisation

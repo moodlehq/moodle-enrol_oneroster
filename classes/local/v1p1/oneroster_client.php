@@ -529,12 +529,8 @@ EOF;
         require_once("{$CFG->dirroot}/user/lib.php");
 
         // Fetch the user representation for this entity.
-        // TODO Pass relevant args in here to fetch the correct auth source, and username field.
         $remoteuser = $entity->get_user_data();
-
-        // TODO support setting of the auth mechanism, and use of the alternate userId fields.
-        $remoteuser->auth = 'manual';
-
+        $remoteuser->auth = $this->get_config_setting('newuser_auth');
         $remoteuser->confirmed = true;
 
         if ($this->get_user_mapping($remoteuser->idnumber)) {
