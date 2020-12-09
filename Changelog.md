@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 - Added a new setting to select the authentication method (Fixes #7)
+- Added a new setting to select the page size when querying the OneRoster host
 
 ## [2020120701] - 2020-12-07
 ### Fixed

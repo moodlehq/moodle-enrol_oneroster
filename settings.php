@@ -108,6 +108,16 @@ if ($ADMIN->fulltree) {
         ''
     ));
 
+    // Connection settings - Page size.
+    $settings->add(new admin_setting_configtext(
+        'enrol_oneroster/pagesize',
+        get_string('settings_connection_pagesize', 'enrol_oneroster'),
+        get_string('settings_connection_pagesize_desc', 'enrol_oneroster'),
+        200,
+        PARAM_INT,
+        4
+    ));
+
     // Test connection.
     $settings->add(new admin_setting_heading(
         'enrol_oneroster/testconnection',
