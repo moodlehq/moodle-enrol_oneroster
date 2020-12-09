@@ -533,6 +533,8 @@ EOF;
         // TODO support setting of the auth mechanism, and use of the alternate userId fields.
         $remoteuser->auth = 'manual';
 
+        $remoteuser->confirmed = true;
+
         if ($this->get_user_mapping($remoteuser->idnumber)) {
             $localuser = $this->update_existing_user($entity, $remoteuser);
         } else {

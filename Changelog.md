@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Improved
 - Migrated from Travis to GitHub Actions
 
+### Fixed
+- Mark new users as confirmed
+
 ## [2020120701] - 2020-12-07
 ### Fixed
 - Fetching parent organisation
