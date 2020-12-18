@@ -1,6 +1,6 @@
 # Moodle OneRoster Enrolment plugin
 [![GitHub Release](https://img.shields.io/github/v/release/moodlehq/moodle-enrol_oneroster?include_prereleases)](https://github.com/moodlehq/moodle-enrol_oneroster/releases)
-![Build Status](https://github.com/moodlehq/moodle-enrol_oneroster/workflows/.github/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/moodlehq/moodle-enrol_oneroster/workflows/Run%20all%20tests/badge.svg)
 
 
 The `enrol_oneroster` plugin for Moodle is an Enrolment plugin which supports Version 1.1 of the [IMS OneRoster](https://www.imsglobal.org/activity/onerosterlis) REST specification.
