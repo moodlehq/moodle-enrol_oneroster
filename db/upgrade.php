@@ -24,6 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Perfrom the OneRoster upgrade steps.
+ *
+ * @param   float $oldversion
+ * @return  bool
+ */
 function xmldb_enrol_oneroster_upgrade($oldversion) {
     global $DB;
 
