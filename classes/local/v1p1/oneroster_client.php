@@ -196,7 +196,9 @@ trait oneroster_client {
             // Unassign roles for this user.
             foreach ($ra as $userid => $roleids) {
                 foreach (array_keys($roleids) as $roleid) {
-                    role_unassign($roleid, $userid, $context->id, 'enrol_oneroster', $instance->id);
+                    if ($roleid) {
+                        role_unassign($roleid, $userid, $context->id, 'enrol_oneroster', $instance->id);
+                    }
                 }
             }
 
@@ -527,11 +529,9 @@ EOF;
         require_once("{$CFG->dirroot}/user/lib.php");
 
         // Fetch the user representation for this entity.
-        // TODO Pass relevant args in here to fetch the correct auth source, and username field.
         $remoteuser = $entity->get_user_data();
-
-        // TODO support setting of the auth mechanism, and use of the alternate userId fields.
-        $remoteuser->auth = 'manual';
+        $remoteuser->auth = $this->get_config_setting('newuser_auth');
+        $remoteuser->confirmed = true;
 
         if ($this->get_user_mapping($remoteuser->idnumber)) {
             $localuser = $this->update_existing_user($entity, $remoteuser);
@@ -667,8 +667,8 @@ EOF;
                     $remoteagent->get('username'),
                     $remoteagent->get('idnumber'),
                     $remoteagent->get('role'),
-                    $remoteuser->get('username'),
-                    $remoteuser->get('idnumber')
+                    $entity->get('username'),
+                    $entity->get('idnumber')
                 ), 4);
                 continue;
             }
@@ -682,8 +682,8 @@ EOF;
                     $remoteagent->get('username'),
                     $remoteagent->get('idnumber'),
                     $remoteagent->get('role'),
-                    $remoteuser->get('username'),
-                    $remoteuser->get('idnumber')
+                    $entity->get('username'),
+                    $entity->get('idnumber')
                 ), 4);
                 continue;
             }
@@ -699,8 +699,8 @@ EOF;
                     $remoteagent->get('username'),
                     $remoteagent->get('idnumber'),
                     $remoteagent->get('role'),
-                    $remoteuser->get('username'),
-                    $remoteuser->get('idnumber')
+                    $entity->get('username'),
+                    $entity->get('idnumber')
                 ), 4);
                 $this->add_metric('user_mapping', 'create');
             } else {

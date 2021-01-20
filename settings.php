@@ -108,6 +108,16 @@ if ($ADMIN->fulltree) {
         ''
     ));
 
+    // Connection settings - Page size.
+    $settings->add(new admin_setting_configtext(
+        'enrol_oneroster/pagesize',
+        get_string('settings_connection_pagesize', 'enrol_oneroster'),
+        get_string('settings_connection_pagesize_desc', 'enrol_oneroster'),
+        200,
+        PARAM_INT,
+        4
+    ));
+
     // Test connection.
     $settings->add(new admin_setting_heading(
         'enrol_oneroster/testconnection',
@@ -124,6 +134,45 @@ if ($ADMIN->fulltree) {
             get_string('settings_testconnection_link', 'enrol_oneroster')
         )
     ));
+
+    // User creation settings.
+    $settings->add(new admin_setting_heading(
+        'enrol_oneroster/newuser',
+        get_string('settings_newuser', 'enrol_oneroster'),
+        get_string('settings_newuser_desc', 'enrol_oneroster')
+    ));
+
+    $enabled = get_string('pluginenabled', 'core_plugin');
+    $disabled = get_string('plugindisabled', 'core_plugin');
+
+    $authoptions = [
+        $enabled => [],
+        $disabled => [],
+    ];
+    $auths = core_component::get_plugin_list('auth');
+    foreach (array_keys($auths) as $auth) {
+        $authinst = get_auth_plugin($auth);
+
+        if (!$authinst->is_internal()) {
+            $cannotchangeusername[] = $auth;
+        }
+
+        if (is_enabled_auth($auth)) {
+            $authoptions[$enabled][$auth] = get_string('pluginname', "auth_{$auth}");
+        } else {
+            $authoptions[$disabled][$auth] = get_string('pluginname', "auth_{$auth}");
+        }
+    }
+
+    $settings->add(
+        new admin_setting_configselect(
+            'enrol_oneroster/newuser_auth',
+            get_string('settings_newuser_auth', 'enrol_oneroster'),
+            get_string('settings_newuser_auth_desc', 'enrol_oneroster'),
+            'manual',
+            $authoptions
+        )
+    );
 
 
     // Role mappings for the following One Roster roles:

@@ -108,8 +108,7 @@ class endpoint implements endpoint_interface {
         }
 
         if (!array_key_exists('limit', $params)) {
-            // TODO convert to admin config setting.
-            $params['limit'] = 200;
+            $params['limit'] = get_config('enrol_oneroster', 'pagesize');
         }
 
         $command = $this->get_http_method($method, $params);
