@@ -174,6 +174,19 @@ if ($ADMIN->fulltree) {
         )
     );
 
+    $settings->add(
+        new admin_setting_configselect(
+            'enrol_oneroster/shortname_attribute',
+            get_string('settings_shortname_attribute', 'enrol_oneroster'),
+            get_string('settings_shortname_attribute_desc', 'enrol_oneroster'),
+            'sourcedId',
+            [
+                'sourcedId' => 'sourcedId',
+                'classCode' => 'classCode'
+            ]
+        )
+    );
+
 
     // Role mappings for the following One Roster roles:
     // - student;

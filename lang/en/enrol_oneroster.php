@@ -69,6 +69,8 @@ $string['settings_rolemapping_student'] = 'One Roster Student';
 $string['settings_rolemapping_student_desc'] = 'A student at a organization.';
 $string['settings_rolemapping_teacher'] = 'One Roster Teacher';
 $string['settings_rolemapping_teacher_desc'] = 'A Teacher at organization.';
+$string['settings_shortname_attribute'] = 'Shortname Attribute Mapper';
+$string['settings_shortname_attribute_desc'] = 'The attribute of a class that is going to be mapped to course short name. The default value is "sourcedId".';
 $string['settings_testconnection'] = 'Test connection';
 $string['settings_testconnection_detail'] = 'You should test your settings to ensure that the connection to the server works as expected.
 This is also used to fetch the list of available schools that should be synchronised.';
