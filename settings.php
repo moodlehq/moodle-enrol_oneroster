@@ -174,6 +174,12 @@ if ($ADMIN->fulltree) {
         )
     );
 
+    $settings->add(new admin_setting_heading(
+        'enrol_oneroster/attribute_mapping',
+        get_string('settings_attribute_mapping', 'enrol_oneroster'),
+        ''
+    ));
+
     $settings->add(
         new admin_setting_configselect(
             'enrol_oneroster/shortname_attribute',
