@@ -51,11 +51,18 @@ class converter {
          *
          * Source https://www.imsglobal.org/oneroster-v11-final-specification#_Toc480452032.
          */
-        $datetime = DateTime::createFromFormat(
-            'Y-m-d',
-            $date,
-            new DateTimeZone('UTC')
-        );
+        
+         // Important Note: Based on IMS Specification for OneRoster date times should be formatted in UTL
+        // so this conversion is imvalid 
+
+        // $datetime = DateTime::createFromFormat(
+        //     'Y-m-d',
+        //     $date,
+        //     new DateTimeZone('UTC')
+        // );
+
+        $datetime = new DateTime($date);
+        
         $datetime->setTime(0, 0, 0, 0);
 
         return $datetime->getTimestamp();
