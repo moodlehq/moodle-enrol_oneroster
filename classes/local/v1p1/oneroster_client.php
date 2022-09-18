@@ -530,6 +530,7 @@ EOF;
 
         // Fetch the user representation for this entity.
         $remoteuser = $entity->get_user_data();
+        $remoteuser->mnethostid = $CFG->mnet_localhost_id;
         $remoteuser->auth = $this->get_config_setting('newuser_auth');
         $remoteuser->confirmed = true;
 
