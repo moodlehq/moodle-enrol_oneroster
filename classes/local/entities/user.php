@@ -27,7 +27,7 @@ namespace enrol_oneroster\local\entities;
 use coding_exception;
 use enrol_oneroster\local\endpoints\rostering as rostering_endpoint;
 use enrol_oneroster\local\entity;
-use enrol_oneroster\local\interfaces\ user_representation;
+use enrol_oneroster\local\interfaces\user_representation;
 use enrol_oneroster\local\interfaces\container as container_interface;
 use stdClass;
 
