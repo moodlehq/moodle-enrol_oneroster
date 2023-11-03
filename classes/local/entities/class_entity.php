@@ -114,13 +114,17 @@ class class_entity extends entity implements course_representation {
      * @return  stdClass
      */
     public function get_course_data(): stdClass {
+        $shortname_attribute = get_config('enrol_oneroster', 'shortname_attribute');
+        if (empty($shortname_attribute)) {
+            $shortname_attribute = 'sourcedId';
+        }
         $coursedata = (object) [
             'idnumber' => $this->get('sourcedId'),
             'fullname' => $this->get('title'),
 
             // Note: The courseCode is not guaranteed to be unique.
             // This may need to be adjusted accordingly, or using an admin setting.
-            'shortname' => $this->get('sourcedId'),
+            'shortname' => $this->get($shortname_attribute),
 
             // Valid states are 'active' or 'tobedeleted'.
             'visible' => ($this->get('status') === 'active'),

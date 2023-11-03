@@ -174,6 +174,27 @@ if ($ADMIN->fulltree) {
         )
     );
 
+    $settings->add(new admin_setting_heading(
+        'enrol_oneroster/attribute_mapping',
+        get_string('settings_attribute_mapping', 'enrol_oneroster'),
+        ''
+    ));
+
+    $fields = [
+        'sourcedId' => 'sourcedId',
+        'classCode' => 'classCode'
+    ];
+
+    $settings->add(
+        new admin_setting_configselect(
+            'enrol_oneroster/shortname_attribute',
+            get_string('settings_shortname_attribute', 'enrol_oneroster'),
+            get_string('settings_shortname_attribute_desc', 'enrol_oneroster'),
+            'sourcedId',
+            $fields
+        )
+    );
+
 
     // Role mappings for the following One Roster roles:
     // - student;
@@ -196,16 +217,21 @@ if ($ADMIN->fulltree) {
             -1 => 'notmapped',
         ],
         array_map(function($role) {
-
             return $role->shortname;
         }, get_all_roles(null))
     );
-    $courseroles = array_merge(
-        [
-            -1 => get_string('settings_notmapped', 'enrol_oneroster'),
-        ],
-        role_get_names(\context_course::instance(SITEID), ROLENAME_ALIAS, true)
-    );
+
+    // important change:use role id instead of role index which may cause a lot of errors 
+    // when administrators are changing sort order.
+    $roles = get_all_roles(\context_course::instance(SITEID));
+    $roleNames = role_get_names(\context_course::instance(SITEID), ROLENAME_ALIAS, true);
+    
+    $courseroles =
+        [ '0' => get_string('settings_notmapped', 'enrol_oneroster') ] +
+        array_combine(
+            array_map(function($v){ return strval($v->id); }, $roles),
+            $roleNames
+        );
 
     // Mapping for the 'student' role.
     \enrol_oneroster\settings::add_role_mapping($settings, 'student', $allroles, $courseroles, 'student');
